@@ -14,19 +14,22 @@ else
   set shortmess=aoO
 endif
 badd +9 app.html
-badd +72 routes/+page.svelte
+badd +12 routes/+page.svelte
 badd +95 Components/Navigation.svelte
-badd +19 Components/HomePage.svelte
-badd +149 Components/PopularCarousel.svelte
+badd +22 Components/HomePage.svelte
+badd +51 Components/PopularCarousel.svelte
+badd +59 Components/TrendingVideos.svelte
+badd +8 routes/+layout.svelte
+badd +2 Components/Footer.svelte
 argglobal
 %argdel
 $argadd app.html
 set stal=2
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit Components/PopularCarousel.svelte
+edit Components/Footer.svelte
 argglobal
-balt Components/HomePage.svelte
+balt routes/+layout.svelte
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -35,99 +38,23 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-10
+2
 normal! zo
-12
+6
 normal! zo
-17
+7
 normal! zo
-19
-normal! zo
-25
-normal! zo
-26
-normal! zo
-27
-normal! zo
-28
-normal! zo
-29
-normal! zo
-35
-normal! zo
-36
-normal! zo
-35
-normal! zo
-36
-normal! zo
-43
-normal! zo
-44
-normal! zo
-46
-normal! zo
-47
-normal! zo
-48
-normal! zo
-47
-normal! zc
-26
-normal! zc
-60
-normal! zo
-64
-normal! zo
-60
-normal! zc
-73
-normal! zo
-83
-normal! zo
-93
-normal! zo
-99
-normal! zo
-103
-normal! zo
-114
-normal! zo
-122
-normal! zo
-132
-normal! zo
-142
-normal! zo
-146
-normal! zo
-151
-normal! zo
-159
-normal! zo
-167
-normal! zo
-174
-normal! zo
-175
-normal! zo
-180
-normal! zo
-184
-normal! zo
-188
-normal! zo
-let s:l = 57 - ((41 * winheight(0) + 15) / 31)
+let s:l = 2 - ((1 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 57
-normal! 09|
+keepjumps 2
+normal! 028|
 lcd ~/Desktop/apache/SvelteTube/src
 tabnext
-edit ~/Desktop/apache/SvelteTube/src/Components/PopularCarousel.svelte
+edit ~/Desktop/apache/SvelteTube/src/Components/Footer.svelte
 argglobal
-balt ~/Desktop/apache/SvelteTube/src/routes/+page.svelte
+balt ~/Desktop/apache/SvelteTube/src/Components/TrendingVideos.svelte
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -136,90 +63,18 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-10
+6
 normal! zo
-12
+7
 normal! zo
-17
-normal! zo
-19
-normal! zo
-25
-normal! zo
-26
-normal! zo
-27
-normal! zo
-28
-normal! zo
-29
-normal! zo
-35
-normal! zo
-36
-normal! zo
-35
-normal! zo
-36
-normal! zo
-43
-normal! zo
-44
-normal! zo
-46
-normal! zo
-47
-normal! zo
-48
-normal! zo
-51
-normal! zo
-26
-normal! zc
-60
-normal! zo
-64
-normal! zo
-65
-normal! zo
-73
-normal! zo
-83
-normal! zo
-93
-normal! zo
-103
-normal! zo
-114
-normal! zo
-122
-normal! zo
-132
-normal! zo
-142
-normal! zo
-146
-normal! zo
-151
-normal! zo
-174
-normal! zo
-175
-normal! zo
-180
-normal! zo
-184
-normal! zo
-188
-normal! zo
-let s:l = 175 - ((20 * winheight(0) + 15) / 31)
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 175
+keepjumps 1
 normal! 0
 lcd ~/Desktop/apache/SvelteTube/src
-tabnext 2
+tabnext 1
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

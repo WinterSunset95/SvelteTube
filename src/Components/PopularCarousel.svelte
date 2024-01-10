@@ -56,137 +56,171 @@ function decrement() {
 		{/each}
 	</div>
 
-	<div class="carousel_prev">
-		<img src={prevVideo.videoThumbnails[4].url} alt={prevVideo.title}>
-		<h3>{prevVideo.title}</h3>
-	</div>
+	<div class="carousel_side">
+		<a href="#" class="carousel_prev">
+			<div>
+				<img src={prevVideo.videoThumbnails[4].url} alt={prevVideo.title}>
+			</div>
+			<h3>{prevVideo.title}</h3>
+		</a>
 
-	<div class="carousel_next">
-		<img src={nextVideo.videoThumbnails[4].url} alt={nextVideo.title}>
-		<h3>{nextVideo.title}</h3>
+		<a href="#" class="carousel_next">
+			<div>
+				<img src={nextVideo.videoThumbnails[4].url} alt={nextVideo.title}>
+			</div>
+			<h3>{nextVideo.title}</h3>
+		</a>
 	</div>
 
 </div>
 
 <style>
-.carousel_container {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 1fr;
-	width: 100%;
-	aspect-ratio: 16 / 9;
-
-	grid-column: span 12;
-}
-
-.controls {
-	grid-column: 1 / 2;
-	grid-row: 1 / 2;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	z-index: 2;
-}
-
-.controls > .button_container {
-	background-color: var(--primary);
-	border: none;
-	padding: 0.5rem;
-}
-
-.controls > .button_container:hover {
-	background-color: var(--highlight);
-}
-
-.item {
-	grid-column: 1 / 2;
-	grid-row: 1 / 2;
-	width: 100%;
-	transition: opacity 0.5s ease-in-out;
-
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 1fr;
-}
-
-.item > img {
-	grid-column: 1 / 2;
-	grid-row: 1 / 2;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.details {
-	grid-column: 1 / 2;
-	grid-row: 1 / 2;
-	z-index: 1;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-}
-
-.details > .padding {
-	display: flex;
-	flex-direction: column;
-
-	background-color: rgba(0, 0, 0, 0.5);
-	color: white;
-	position: relative;
-	width: 100%;
-}
-
-.hidden {
-	opacity: 0;
-}
-
-.header {
-	display: grid;
-	grid-template-columns: repeat(12, 1fr);
-}
-
-.carousel_prev, .carousel_next {
-	display: grid;
-	place-items: center;
-	grid-template-columns: 1fr;
-
-	grid-column: span 6;
-}
-
-.carousel_prev img, .carousel_next img {
-	width: 100%;
-	height: 100%;
-	grid-column: 1 / 2;
-	grid-row: 1 / 2;
-	object-fit: cover;
-}
-
-.carousel_prev h3, .carousel_next h3 {
-	grid-column: 1 / 2;
-	grid-row: 1 / 2;
-	z-index: 1;
-	color: white;
-}
-
-@media (min-width: 768px) {
 	.carousel_container {
-		grid-column: 1 / 8;
-		grid-row: 1 / 3;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		width: 100%;
+
+		grid-column: span 12;
+		border-radius: 0.5rem;
+		overflow: hidden;
+	}
+
+	.controls {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		z-index: 2;
+	}
+
+	.controls > .button_container {
+		background-color: var(--primary);
+		border: none;
+		padding: 0.5rem;
+	}
+
+	.controls > .button_container:hover {
+		background-color: var(--highlight);
+	}
+
+	.item {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+		width: 100%;
+		transition: opacity 0.5s ease-in-out;
+
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+	}
+
+	.item > img {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.details {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+		z-index: 1;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+
+	.details > .padding {
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+
+		background-color: rgba(0, 0, 0, 0.5);
+		color: white;
+		position: relative;
+	}
+
+	.hidden {
+		opacity: 0;
+	}
+
+	.header {
+		display: grid;
+		padding: 1rem;
+		gap: 1rem;
+		grid-template-columns: repeat(12, 1fr);
+	}
+
+	.carousel_side {
+		grid-column: span 12;
+
+		display: flex;
+		flex-direction: row;
 	}
 
 	.carousel_prev, .carousel_next {
-		grid-column: 8 / 13;
+		display: grid;
+		place-items: center;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		overflow: hidden;
+		flex: 1;
+
+		border-radius: 0.5rem;
 	}
 
 	.carousel_prev {
-		grid-row: 1 / 2;
+		margin-right: 1rem;
 	}
 
-	.carousel_next {
-		grid-row: 2 / 3;
+	.carousel_prev > div, .carousel_next > div {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
 	}
-}
+
+	.carousel_prev img, .carousel_next img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.carousel_prev h3, .carousel_next h3 {
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+	}
+
+	@media (min-width: 768px) {
+		.carousel_container {
+			grid-column: span 8;
+		}
+
+		.carousel_side {
+			grid-column: span 4;
+			flex-direction: column;
+		}
+
+		.carousel_prev {
+			margin-right: 0;
+			margin-bottom: 1rem;
+		}
+
+	}
 
 </style>
