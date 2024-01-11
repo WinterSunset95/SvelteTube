@@ -4,8 +4,8 @@ export let trendingVideos = []
 
 <div class="container">
 	{#each trendingVideos as video, index}
-		<a href="#" class="item">
-			<img src={video.videoThumbnails[4].url} alt={video.title}>
+		<a href="/watch/youtube/{video.videoId}" class="item">
+			<img src={video.videoThumbnails[6].url} alt={video.title}>
 			<div class="details">
 				<p class="title">{video.title}</p>
 				<p class="mini_details">
@@ -49,6 +49,7 @@ export let trendingVideos = []
 
 		display: flex;
 		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	.title {

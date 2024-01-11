@@ -40,7 +40,7 @@ function decrement() {
 			</div>
 		</div>
 		{#each popularVideos as video, index}
-			<a href="#" class="item {index+1 == shownVideo ? '' : 'hidden'}" >
+			<a href="/watch/youtube/{video.videoId}" class="item {index+1 == shownVideo ? '' : 'hidden'}" >
 				<img src={video.videoThumbnails[4].url} alt={video.title}>
 				<div class="details">
 					<div class="padding">
@@ -57,14 +57,14 @@ function decrement() {
 	</div>
 
 	<div class="carousel_side">
-		<a href="#" class="carousel_prev">
+		<a href="/watch/youtube/{prevVideo.videoId}" class="carousel_prev">
 			<div>
 				<img src={prevVideo.videoThumbnails[4].url} alt={prevVideo.title}>
 			</div>
 			<h3>{prevVideo.title}</h3>
 		</a>
 
-		<a href="#" class="carousel_next">
+		<a href="/watch/youtube/{nextVideo.videoId}" class="carousel_next">
 			<div>
 				<img src={nextVideo.videoThumbnails[4].url} alt={nextVideo.title}>
 			</div>
