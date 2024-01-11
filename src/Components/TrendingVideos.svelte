@@ -1,11 +1,22 @@
 <script>
 export let trendingVideos = []
+
+const baseData = trendingVideos
+if (trendingVideos.length > 8) {
+	trendingVideos = baseData.slice(0, 8)
+}
+
+let count = 8
+function showMore() {
+	count += 4
+	trendingVideos = baseData.slice(0, count)
+}
 </script>
 
 <div class="container">
 	{#each trendingVideos as video, index}
 		<a href="/watch/youtube/{video.videoId}" class="item">
-			<img src={video.videoThumbnails[6].url} alt={video.title}>
+			<img src={video.videoThumbnails[4].url} alt={video.title}>
 			<div class="details">
 				<p class="title">{video.title}</p>
 				<p class="mini_details">
@@ -14,6 +25,9 @@ export let trendingVideos = []
 			</div>
 		</a>
 	{/each}
+	{#if count < baseData.length}
+		<button on:click={showMore}>Show more</button>
+	{/if}
 </div>
 
 <style>
