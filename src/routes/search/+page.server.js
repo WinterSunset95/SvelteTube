@@ -1,18 +1,21 @@
 
-export async function load({ params, url }) {
+export async function load({ fetch, url }) {
 	let query = await url.searchParams.get('query')
 
-	const invidiousSearch = await fetch(`https://invidious.lunar.icu/api/v1/search?q=${query}`)
-	const invidiousSearchJson = await invidiousSearch.json()
-
-	let animepaheSearchJson
-
+	let invidiousSearchJson = []
 	try {
-		const animepaheSearch = await fetch(`/api?query=${query}`)
-		animepaheSearchJson = await animepaheSearch.json()
+		const invidiousSearch = await fetch(`https://invidious.lunar.icu/api/v1/search?q=${query}`)
+		invidiousSearchJson = await invidiousSearch.json()
 	} catch {
-		const animepaheSearch = await fetch(`https://animepahe.ru/api?m=search&q=${query}`)
-		animepaheSearchJson = await animepaheSearch.json()
+		invidiousSearchJson = []
+	}
+
+	let animeSearchJson = []
+	try {
+		const animeSearch = await fetch(`/api/animesearch?query=${query}&page=1`)
+		animeSearchJson = await animeSearch.json()
+	} catch {
+		animeSearchJson = []
 	}
 
 	return {
@@ -20,6 +23,6 @@ export async function load({ params, url }) {
 		youtube: [
 			...invidiousSearchJson
 		],
-		animepahe: animepaheSearchJson
+		anime: animeSearchJson
 	}
 }

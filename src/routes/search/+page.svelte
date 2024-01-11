@@ -1,14 +1,12 @@
 <script>
 import { page } from '$app/stores';
 
+const query = $page.url.searchParams.get('query')
+
 export let data
 
 import TrendingVideos from '../../Components/TrendingVideos.svelte';
-import Results from './Results.svelte';
-
-const animeArray = data.animepahe.data
-
-$: console.log(animeArray)
+import Anime from './Anime.svelte';
 
 </script>
 
@@ -26,5 +24,5 @@ $: console.log(animeArray)
 {/if}
 
 <h3>Anime</h3>
-<Results data={animeArray} />
+<Anime data={data} query={query}/>
 

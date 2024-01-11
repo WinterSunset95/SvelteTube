@@ -1,8 +1,9 @@
 export async function GET({ url }) {
-	const query = url.searchParams.get('query');
+	const query = url.searchParams.get('query') || ''
+	const page = url.searchParams.get('page') || 1
 
-	const animepaheSearch = await fetch(`https://animepahe.ru/api?m=search&q=${query}`)
-	const animepaheSearchJson = await animepaheSearch.json()
+	const res = await fetch(`https://consumet-api-six-ochre.vercel.app/anime/gogoanime/${query}?page=${page}`)
+	const data = await res.json()
 
-	return animepaheSearchJson
+	return new Response(JSON.stringify(data))
 }
