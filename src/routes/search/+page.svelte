@@ -1,12 +1,32 @@
 <script>
-import { page } from '$app/stores';
-
-const query = $page.url.searchParams.get('query')
-
+import { onMount } from 'svelte';
 export let data
 
 import TrendingVideos from '../../Components/TrendingVideos.svelte';
 import Anime from './Anime.svelte';
+
+let invidiousSearchJson = []
+let animeSearchJson = []
+
+async function startSearching() {
+	try {
+		const invidiousSearch = await fetch(`https://invidious.lunar.icu/api/v1/search?q=${data.query}`)
+		invidiousSearchJson = await invidiousSearch.json()
+	} catch {
+		invidiousSearchJson = []
+	}
+
+	try {
+		const animeSearch = await fetch(`/api/animesearch?query=${data.query}&page=1`)
+		animeSearchJson = await animeSearch.json()
+	} catch {
+		animeSearchJson = []
+	}
+}
+
+onMount(() => {
+	startSearching()
+})
 
 </script>
 
@@ -17,12 +37,24 @@ import Anime from './Anime.svelte';
 <h2>Query: {data.query}</h2>
 
 <h3>YouTube results</h3>
-{#if data.youtube.length > 0}
-	<TrendingVideos trendingVideos={data.youtube} />
+{#if invidiousSearchJson.length > 0}
+	<TrendingVideos trendingVideos={invidiousSearchJson} />
 {:else}
 	<p>Loading</p>
 {/if}
 
 <h3>Anime</h3>
-<Anime data={data} query={query}/>
+{#if animeSearchJson.results}
+	<Anime data={animeSearchJson} query={data.query}/>
+{:else}
+	<p>Loading</p>
+{/if}
 
+<style>
+	h1, h2, h3, h4, h5, h6 {
+		margin: 1rem;
+	}
+	p {
+		margin: 1rem;
+	}
+</style>

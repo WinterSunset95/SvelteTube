@@ -26,7 +26,7 @@ function showMore() {
 		</a>
 	{/each}
 	{#if count < baseData.length}
-		<button on:click={showMore}>Show more</button>
+		<button class="loadMoreButton" on:click={showMore}>Show more</button>
 	{/if}
 </div>
 
@@ -81,6 +81,17 @@ function showMore() {
 
 	.mini_details {
 		font-size: 0.8rem;
+	}
+
+	.loadMoreButton {
+		padding: 0.5rem;
+		margin: 0.5rem;
+		border-radius: 0.5rem;
+		background-color: var(--secondary);
+		color: var(--text);
+		border: none;
+		width: fit-content;
+		cursor: pointer;
 	}
 
 	@media (min-width: 768px) {
