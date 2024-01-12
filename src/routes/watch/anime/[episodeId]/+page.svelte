@@ -2,6 +2,7 @@
 export let data
 
 import { onMount } from 'svelte';
+import { afterNavigate } from '$app/navigation'
 
 import Video from './Video.svelte';
 
@@ -18,7 +19,9 @@ onMount(() => {
 	loadSources('')
 })
 
-console.table(data.anime)
+afterNavigate(() => {
+	window.reload()
+})
 
 </script>
 
@@ -35,7 +38,7 @@ console.table(data.anime)
 		{/if}
 	</div>
 	<div class="details">
-		<h3 class="title">{data.anime.title}</h3>
+		<h3 class="title">Episode {data.episode.number} of {data.anime.title}</h3>
 		<ul>
 			{#each data.anime.genres as genre}
 				<li>{genre}</li>

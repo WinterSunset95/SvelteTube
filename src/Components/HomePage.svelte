@@ -2,8 +2,7 @@
 	import { onMount } from "svelte";
 
 	import PopularCarousel from "./PopularCarousel.svelte";
-	import TrendingVideos from "./TrendingVideos.svelte";
-	import Anime from "../routes/search/Anime.svelte";
+	import VideoList from "./VideoList.svelte";
 	const invidiousLink = "https://invidious.lunar.icu"
 
 	let popularVideos = []
@@ -43,14 +42,14 @@
 
 {#if animeList.results}
 	<h1 style="padding: 1rem;">Trending Anime</h1>
-	<Anime data={animeList}/>
+	<VideoList data={animeList}/>
 {:else}
 	<h1>Loading Trending anime</h1>
 {/if}
 
 {#if trendingVideos.length > 0}
 	<h1 style="padding: 1rem;">Recommendations</h1>
-	<TrendingVideos trendingVideos={trendingVideos}/>
+	<VideoList data={trendingVideos}/>
 {:else}
 	<h1>Loading trending youtube videos</h1>
 {/if}

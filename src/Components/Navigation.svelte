@@ -16,13 +16,13 @@ function toggleTheme() {
 	</h1>
 	<ul>
 		<li>
-			<a href="/movies" aria-disabled="true">Movies</a>
+			<a href="/movie">Movies</a>
 		</li>
 		<li>
-			<a href="/series" aria-disabled="true">Series</a>
+			<a href="/anime">Anime</a>
 		</li>
 		<li>
-			<a href="/anime" aria-disabled="true">Anime</a>
+			<a href="#">About</a>
 		</li>
 		<li>
 			<button class="icon" on:click={toggleTheme}>
@@ -50,9 +50,6 @@ function toggleTheme() {
 </nav>
 
 <style>
-	a {
-		text-decoration: line-through;
-	}
 nav {
 	display: flex;
 	align-items: center;

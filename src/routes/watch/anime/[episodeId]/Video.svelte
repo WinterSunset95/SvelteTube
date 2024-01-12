@@ -4,9 +4,12 @@ import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 
 import { onMount } from 'svelte';
+import { afterNavigate } from '$app/navigation'
 
 let player;
 let watchSeconds = 0
+let url = data.sources[0].url
+$:  url = data.sources[0].url
 
 const setupVideoJs = () => {
 	if (player) {
@@ -18,7 +21,6 @@ const setupVideoJs = () => {
 			preload: 'auto',
 			fluid: true,
 		})
-		console.log(player)
 	}
 }
 
@@ -42,6 +44,10 @@ onMount(() => {
 	}
 })
 
+afterNavigate(() => {
+	setupVideoJs()
+})
+
 </script>
 
 <div class="container">
@@ -56,6 +62,9 @@ onMount(() => {
 			<button on:click={() => sourceChange(i)}>{source.quality}</button>
 		</li>
 	{/each}
+		<li>
+			<a target="_blank" href={data.download}>download</a>
+		</li>
 </ul>
 
 <style>
@@ -75,10 +84,15 @@ ul {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
+	gap: 0.5rem;
 }
 
-ul > li > button {
-	margin: 0.5rem;
+ul > li {
+	display: flex;
+}
+
+ul > li > button, ul > li > a {
+	margin: 0;
 	padding: 0.5rem 1rem;
 	border-radius: 0.5rem;
 	background-color: var(--secondary);

@@ -13,6 +13,12 @@
 	--text: #342E37;
 	--highlight: #A2D729;
 	--buttons: #FA824C;
+
+	--primary-rgb: 225, 239, 244;
+	--secondary-rgb: 60, 145, 230;
+	--text-rgb: 52, 46, 55;
+	--highlight-rgb: 162, 215, 41;
+	--buttons-rgb: 255, 130, 76;
 }
 
 .dark {
@@ -21,6 +27,12 @@
 	--text: #FFFECB;
 	--highlight: #FEA82F;
 	--buttons: #FF2E00;
+
+	--primary-rgb: 7, 16, 19;
+	--secondary-rgb: 84, 72, 200;
+	--text-rgb: 255, 254, 203;
+	--highlight-rgb: 254, 168, 47;
+	--buttons-rgb: 255, 46, 0;
 }
 
 body {
