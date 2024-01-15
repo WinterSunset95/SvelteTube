@@ -1,8 +1,8 @@
 <script>
 	import { onMount } from "svelte";
 
-	import PopularCarousel from "./PopularCarousel.svelte";
-	import VideoList from "./VideoList.svelte";
+	import PopularCarousel from "$lib/PopularCarousel.svelte"
+	import VideoList from "$lib/VideoList.svelte"
 	const invidiousLink = "https://invidious.lunar.icu"
 
 	let popularVideos = []

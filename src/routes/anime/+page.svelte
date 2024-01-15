@@ -1,6 +1,6 @@
 <script>
 import { onMount } from 'svelte';
-import VideoList from '../../Components/VideoList.svelte'
+import VideoList from '$lib/VideoList.svelte'
 
 let popularVideos = []
 let latestVideos = []

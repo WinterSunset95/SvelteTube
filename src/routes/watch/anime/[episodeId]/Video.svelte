@@ -4,7 +4,6 @@ import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 
 import { onMount } from 'svelte';
-import { afterNavigate } from '$app/navigation'
 
 let player;
 let watchSeconds = 0
@@ -42,10 +41,6 @@ onMount(() => {
 	} else {
 		setupVideoJs()
 	}
-})
-
-afterNavigate(() => {
-	setupVideoJs()
 })
 
 </script>

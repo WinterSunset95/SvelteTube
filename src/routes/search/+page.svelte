@@ -1,29 +1,26 @@
 <script>
 import { onMount } from 'svelte';
+import { afterNavigate, beforeNavigate } from '$app/navigation'
 export let data
 
-import VideoList from '../../Components/VideoList.svelte';
+import VideoList from '$lib/VideoList.svelte'
 
 let invidiousSearchJson = []
 let animeSearchJson = []
 
 async function startSearching() {
-	try {
-		const invidiousSearch = await fetch(`https://invidious.lunar.icu/api/v1/search?q=${data.query}`)
-		invidiousSearchJson = await invidiousSearch.json()
-	} catch {
-		invidiousSearchJson = []
-	}
+	const invidiousSearch = await fetch(`/api/ytsearch?query=${data.query}`)
+	invidiousSearchJson = await invidiousSearch.json()
 
-	try {
-		const animeSearch = await fetch(`/api/animesearch?query=${data.query}&page=1`)
-		animeSearchJson = await animeSearch.json()
-	} catch {
-		animeSearchJson = []
-	}
+	const animeSearch = await fetch(`/api/animesearch?query=${data.query}&page=1`)
+	animeSearchJson = await animeSearch.json()
 }
 
 onMount(() => {
+	startSearching()
+})
+
+afterNavigate(() => {
 	startSearching()
 })
 
@@ -36,15 +33,19 @@ onMount(() => {
 <h2>Query: {data.query}</h2>
 
 <h3>YouTube results</h3>
-{#if invidiousSearchJson.length > 0}
-	<VideoList data={invidiousSearchJson} query={data.query}/>
+{#if invidiousSearchJson.results}
+	{#key invidiousSearchJson.results}
+		<VideoList data={invidiousSearchJson} query={data.query}/>
+	{/key}
 {:else}
 	<p>Loading</p>
 {/if}
 
 <h3>Anime</h3>
-{#if animeSearchJson.results}
-	<VideoList data={animeSearchJson} query={data.query}/>
+{#if data.query}
+	{#key animeSearchJson.results}
+		<VideoList data={animeSearchJson} query={data.query}/>
+	{/key}
 {:else}
 	<p>Loading</p>
 {/if}
