@@ -1,6 +1,6 @@
 <script>
-	import Navigation from "../Components/Navigation.svelte";
-	import HomePage from "../Components/HomePage.svelte";
+	import Navigation from '$lib/Navigation.svelte'
+	import HomePage from '$lib/HomePage.svelte'
 </script>
 
 <svelte:head>

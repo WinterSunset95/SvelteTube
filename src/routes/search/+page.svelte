@@ -1,9 +1,10 @@
 <script>
 import { onMount } from 'svelte';
+import { afterNavigate } from '$app/navigation'
 export let data
 
-import TrendingVideos from '../../Components/TrendingVideos.svelte';
-import Anime from './Anime.svelte';
+import InvidiousList from '$lib/InvidiousList.svelte'
+import AnimeList from '$lib/AnimeList.svelte';
 
 let invidiousSearchJson = []
 let animeSearchJson = []
@@ -28,6 +29,10 @@ onMount(() => {
 	startSearching()
 })
 
+afterNavigate(() => {
+	startSearching()
+})
+
 </script>
 
 <svelte:head>
@@ -38,14 +43,18 @@ onMount(() => {
 
 <h3>YouTube results</h3>
 {#if invidiousSearchJson.length > 0}
-	<TrendingVideos trendingVideos={invidiousSearchJson} />
+	{#key invidiousSearchJson}
+		<InvidiousList trendingVideos={invidiousSearchJson} />
+	{/key}
 {:else}
 	<p>Loading</p>
 {/if}
 
 <h3>Anime</h3>
 {#if animeSearchJson.results}
-	<Anime data={animeSearchJson} query={data.query}/>
+	{#key animeSearchJson.results}
+		<AnimeList data={animeSearchJson} query={data.query}/>
+	{/key}
 {:else}
 	<p>Loading</p>
 {/if}
