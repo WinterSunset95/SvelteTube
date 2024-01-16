@@ -8,6 +8,14 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	namespace ListData {
+		interface Item {
+			currentPage: number;
+			hasNextPage: boolean;
+			results: any[];
+		}
+	}
 }
 
 export {};
