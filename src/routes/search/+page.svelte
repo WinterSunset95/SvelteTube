@@ -25,8 +25,8 @@ async function initialLoad() {
 
 $: data.query && initialLoad();
 
-onMount(async () => {
-	await initialLoad();
+onMount(() => {
+	initialLoad();
 });
 
 </script>
@@ -39,3 +39,9 @@ onMount(async () => {
 {:else}
 	<p>Loading...</p>
 {/if}
+
+<style>
+h1 {
+	padding: 0.5rem;
+}
+</style>

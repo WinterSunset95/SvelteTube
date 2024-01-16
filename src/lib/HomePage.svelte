@@ -25,10 +25,9 @@
 	onMount(async () => {
 		await initialLoad();
 	});
-
 </script>
 
-<h1>This is the HomePage</h1>
+<h1>Start watching</h1>
 {#if animeList}
 	{#key animeList.results}
 		<AnimeList data={animeList} loadMoreFunction={loadMore}/>
@@ -36,3 +35,9 @@
 {:else}
 	<p>Loading...</p>
 {/if}
+
+<style>
+h1 {
+	padding: 0.5rem;
+}
+</style>

@@ -16,10 +16,13 @@ function toggleTheme() {
 	</h1>
 	<ul>
 		<li>
-			<a href="/movie">Movies</a>
+			<a href="#">Movies</a>
 		</li>
 		<li>
-			<a href="/anime">Anime</a>
+			<a href="#">YouTube</a>
+		</li>
+		<li>
+			<a href="#">Rooms</a>
 		</li>
 		<li>
 			<a href="#">About</a>
@@ -64,14 +67,12 @@ nav > h1 {
 }
 
 ul {
+	padding: 1rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-grow: 1;
-}
-
-li {
-	padding: 1rem;
+	gap: 1rem;
 }
 
 .search {

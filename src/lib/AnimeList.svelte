@@ -39,7 +39,7 @@ export let loadMoreFunction: () => Promise<void>;
 .list {
 	display: grid;
 	gap: 1rem;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	padding: 0.5rem;
 }
 .video {
