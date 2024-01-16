@@ -9,18 +9,17 @@ let resultsPage = 1
 let hasNextPage = false
 let endpoint = ""
 
-if (data.endpoint) {
+if (data.endpoint && data.endpoint != "invidious") {
 	videoArray = data.results
 	resultsPage = data.currentPage
 	hasNextPage = data.hasNextPage
 	endpoint = data.endpoint
-} else {
-	console.table(data)
-	data.map(video => {
+} else if (data.endpoint && data.endpoint == "invidious") {
+	data.results.map(video => {
 		videoArray.push({
 			id: video.videoId,
 			title: video.title,
-			image: video.videoThumbnails[5].url,
+			image: video.videoThumbnails ? video.videoThumbnails[5].url : "",
 			releaseDate: video.publishedText,
 			type: video.type,
 			views: video.viewCountText,
@@ -33,7 +32,11 @@ if (data.endpoint) {
 			}
 		})
 	})
-	endpoint = "invidious"
+} else {
+	videoArray = []
+	resultsPage = 1
+	hasNextPage = false
+	endpoint = "error"
 }
 
 let count = 4
@@ -44,6 +47,8 @@ function loadMore() {
 		getNextPage()
 	}
 }
+
+console.log(data)
 
 async function getNextPage() {
 	if (hasNextPage) {
@@ -84,43 +89,87 @@ async function getNextPage() {
 
 </script>
 
-<div class={endpoint == "invidious" ? "list_invidious" : "list"}>
-	{#each videoArray.slice(0, count) as video}
-		<a class="video" href={endpoint == "search" ? `/anime/${video.id}?animeId=${query.animeId}` : endpoint == "trendinganime" ? `/anime/${video.id}` : endpoint == "latestvideos" ? `/watch/anime/${video.id}` : endpoint == "movies" ? `/${video.id}` : endpoint == "invidious" ? `/watch/youtube/${video.id}` : `/anime/${video.id}` } >
-			<img src={video.image} alt="">
-			<div class="details">
-				<div class="padding">
-					<h3 class="title">{video.title.slice(0, 40)} {video.title.length > 40 ? " . . . " : ""}</h3>
-					{#if endpoint == "animesearch"}
-						<p class="mini_details">
-							{video.releaseDate} • {video.subOrDub ? video.subOrDub : video.type}
-						</p>
-					{:else if endpoint == "trendinganime"}
-						<ul class="genre">
-							{#each video.genres as genre}
-								<li>{genre}</li>
-							{/each}
-						</ul>
-					{:else if endpoint == "latestvideos"}
-						<p class="ep_no">
-							Eps: {video.episodeNumber}
-						</p>
-					{:else if endpoint == "movies"} 
-						<p>
-							{video.type}
-						</p>
-					{:else if endpoint == "invidious"}
-						<p class="mini_details">
-							{video.channel.name} • {video.views} • {video.length}
-						</p>
-					{/if}
+{#if endpoint == "error"}
+	<h1>Something went wrong</h1>
+{:else if endpoint == "invidious"}
+	<div class="list_invidious">
+		{#each videoArray.slice(0, count) as video}
+			<a class="video" href={"/watch/youtube/{video.id}"} >
+				<img src={video.image} alt="">
+				<div class="details">
+					<div class="padding">
+						<h3 class="title">{video.title.slice(0, 40)} {video.title.length > 40 ? " . . . " : ""}</h3>
+						{#if endpoint == "animesearch"}
+							<p class="mini_details">
+								{video.releaseDate} • {video.subOrDub ? video.subOrDub : video.type}
+							</p>
+						{:else if endpoint == "trendinganime"}
+							<ul class="genre">
+								{#each video.genres as genre}
+									<li>{genre}</li>
+								{/each}
+							</ul>
+						{:else if endpoint == "latestvideos"}
+							<p class="ep_no">
+								Eps: {video.episodeNumber}
+							</p>
+						{:else if endpoint == "movies"} 
+							<p>
+								{video.type}
+							</p>
+						{:else if endpoint == "invidious"}
+							<p class="mini_details">
+								{video.channel.name} • {video.views} • {video.length}
+							</p>
+						{/if}
+					</div>
 				</div>
-			</div>
-		</a>
-	{/each}
-</div>
-{#if hasNextPage || count < videoArray.length}
-	<button on:click={loadMore}>Load more</button>
+			</a>
+		{/each}
+	</div>
+	{#if hasNextPage || count < videoArray.length}
+		<button on:click={loadMore}>Load more</button>
+	{/if}
+{:else}
+	<div class="list">
+		{#each videoArray.slice(0, count) as video}
+			<a class="video" href={endpoint == "search" ? `/anime/${video.id}?animeId=${query.animeId}` : endpoint == "trendinganime" ? `/anime/${video.id}` : endpoint == "latestvideos" ? `/watch/anime/${video.id}` : endpoint == "movies" ? `/${video.id}` : endpoint == "invidious" ? `/watch/youtube/${video.id}` : `/anime/${video.id}` } >
+				<img src={video.image} alt="">
+				<div class="details">
+					<div class="padding">
+						<h3 class="title">{video.title}</h3>
+						{#if endpoint == "animesearch"}
+							<p class="mini_details">
+								{video.releaseDate} • {video.subOrDub ? video.subOrDub : video.type}
+							</p>
+						{:else if endpoint == "trendinganime"}
+							<ul class="genre">
+								{#each video.genres as genre}
+									<li>{genre}</li>
+								{/each}
+							</ul>
+						{:else if endpoint == "latestvideos"}
+							<p class="ep_no">
+								Eps: {video.episodeNumber}
+							</p>
+						{:else if endpoint == "movies"} 
+							<p>
+								{video.type}
+							</p>
+						{:else if endpoint == "invidious"}
+							<p class="mini_details">
+								{video.channel.name} • {video.views} • {video.length}
+							</p>
+						{/if}
+					</div>
+				</div>
+			</a>
+		{/each}
+	</div>
+	{#if hasNextPage || count < videoArray.length}
+		<button on:click={loadMore}>Load more</button>
+	{/if}
+
 {/if}
 
 <style>

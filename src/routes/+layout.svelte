@@ -1,7 +1,6 @@
 <script>
-import Navigation from "../Components/Navigation.svelte";
-import Footer from "../Components/Footer.svelte";
-import '../global.css'
+import Footer from '../Components/Footer.svelte'
+import Navigation from '../Components/Navigation.svelte'
 </script>
 
 <Navigation />
