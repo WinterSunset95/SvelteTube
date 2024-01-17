@@ -19,9 +19,6 @@ function toggleTheme() {
 			<a href="/globalchat">Globalchat</a>
 		</li>
 		<li>
-			<a href="#">YouTube</a>
-		</li>
-		<li>
 			<a href="#">Rooms</a>
 		</li>
 		<li>
