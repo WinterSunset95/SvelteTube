@@ -51,3 +51,8 @@ export type AnimeEpisode = {
 	]
 }
 
+export type GlobalChat = {
+	name: string;
+	message: string;
+}
+

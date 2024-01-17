@@ -16,7 +16,7 @@ function toggleTheme() {
 	</h1>
 	<ul>
 		<li>
-			<a href="#">Movies</a>
+			<a href="/globalchat">Globalchat</a>
 		</li>
 		<li>
 			<a href="#">YouTube</a>
