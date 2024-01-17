@@ -19,7 +19,7 @@ function toggleTheme() {
 			<a href="/globalchat">Globalchat</a>
 		</li>
 		<li>
-			<a href="#">YouTube</a>
+			<a href="/firechat">FireChat</a>
 		</li>
 		<li>
 			<a href="#">Rooms</a>

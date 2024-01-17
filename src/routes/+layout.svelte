@@ -6,7 +6,7 @@ import { page } from "$app/stores";
 console.log($page.url.pathname)
 </script>
 
-{#if $page.url.pathname == "/globalchat"}
+{#if $page.url.pathname == "/globalchat" || $page.url.pathname == "/firechat"}
 	<slot />
 {:else}
 	<Navigation />
