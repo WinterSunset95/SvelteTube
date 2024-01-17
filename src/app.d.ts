@@ -1,0 +1,21 @@
+// See https://kit.svelte.dev/docs/types#app
+// for information about these interfaces
+declare global {
+	namespace App {
+		// interface Error {}
+		// interface Locals {}
+		// interface PageData {}
+		// interface PageState {}
+		// interface Platform {}
+	}
+
+	namespace ListData {
+		interface Item {
+			currentPage: number;
+			hasNextPage: boolean;
+			results: any[];
+		}
+	}
+}
+
+export {};

@@ -1,59 +1,47 @@
-<script>
+<script lang="ts">
+export let data: { query: string };
+
+import type { AnimeData } from '$lib/types.js';
 import { onMount } from 'svelte';
-export let data
+import AnimeList from '$lib/AnimeList.svelte';
 
-import VideoList from '../../Components/VideoList.svelte';
+let animeList: AnimeData;
 
-let invidiousSearchJson = []
-let animeSearchJson = []
-
-async function startSearching() {
-	try {
-		const invidiousSearch = await fetch(`https://invidious.lunar.icu/api/v1/search?q=${data.query}`)
-		invidiousSearchJson = await invidiousSearch.json()
-	} catch {
-		invidiousSearchJson = []
-	}
-
-	try {
-		const animeSearch = await fetch(`/api/animesearch?query=${data.query}&page=1`)
-		animeSearchJson = await animeSearch.json()
-	} catch {
-		animeSearchJson = []
+async function loadMore() {
+	if (animeList.hasNextPage) {
+		animeList.currentPage++;
+		const res = await fetch(`/api/animesearch?query=${data.query}&page=${animeList.currentPage}`);
+		const resData: AnimeData = await res.json();
+		animeList.hasNextPage = resData.hasNextPage;
+		animeList.currentPage = resData.currentPage;
+		animeList.results.push(...resData.results);
 	}
 }
 
+async function initialLoad() {
+	const res = await fetch(`/api/animesearch?query=${data.query}`);
+	animeList = await res.json();
+}
+
+$: data.query && initialLoad();
+
 onMount(() => {
-	startSearching()
-})
+	initialLoad();
+});
 
 </script>
 
-<svelte:head>
-	<title>Search: {data.query}</title>
-</svelte:head>
-
-<h2>Query: {data.query}</h2>
-
-<h3>YouTube results</h3>
-{#if invidiousSearchJson.length > 0}
-	<VideoList data={invidiousSearchJson} query={data.query}/>
+<h1>Search results for "{data.query}"</h1>
+{#if animeList}
+	{#key animeList.results}
+		<AnimeList data={animeList} loadMoreFunction={loadMore}/>
+	{/key}
 {:else}
-	<p>Loading</p>
-{/if}
-
-<h3>Anime</h3>
-{#if animeSearchJson.results}
-	<VideoList data={animeSearchJson} query={data.query}/>
-{:else}
-	<p>Loading</p>
+	<p>Loading...</p>
 {/if}
 
 <style>
-	h1, h2, h3, h4, h5, h6 {
-		margin: 1rem;
-	}
-	p {
-		margin: 1rem;
-	}
+h1 {
+	padding: 0.5rem;
+}
 </style>
