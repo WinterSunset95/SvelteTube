@@ -6,6 +6,11 @@ import { wserver } from './server/socket'
 export default defineConfig({
 	plugins: [
 		sveltekit(),
-		wserver
+		{
+			name: 'wserver',
+			configureServer(server) {
+				wserver(server.httpServer)
+			}
+		}
 	]
 });
