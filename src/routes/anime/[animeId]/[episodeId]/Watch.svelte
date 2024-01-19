@@ -1,7 +1,26 @@
 <script lang="ts">
-import type { AnimeEpisode } from "$lib/types";
+import type { AnimeDetails, AnimeEpisode, RoomData } from "$lib/types";
 import type Player from "video.js/dist/types/player";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue, push, set, get } from 'firebase/database';
+import dotenv from "dotenv";
 
+dotenv.config()
+const firebaseConfig = {
+	apiKey: process.env.apiKey,
+	authDomain: process.env.authDomain,
+	databaseURL: process.env.databaseURL,
+	projectId: process.env.projectId,
+	storageBucket: process.env.storageBucket,
+	messagingSenderId: process.env.messagingSenderId,
+	appId: process.env.appId,
+	measurementId: process.env.measurementId,
+}
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+export let animeDetails: AnimeDetails;
 export let animeEpisode: AnimeEpisode;
 
 import videojs from "video.js";
@@ -12,6 +31,9 @@ let sourceNumber = 0;
 let secondsCount = 0;
 let serverUrl = "default";
 let player: Player;
+
+let rooms: RoomData[];
+let roomData: RoomData;
 
 function deletePlayer() {
 	if (player) {
@@ -51,6 +73,12 @@ $: if(serverUrl != "default") {
 
 onMount(() => {
 	setupPlayer();
+	const roomDataRef = ref(db, `rooms`);
+	get(roomDataRef).then((snapshot) => {
+		if (snapshot.exists()) {
+			rooms = snapshot.val();
+		}
+	});
 });
 
 </script>

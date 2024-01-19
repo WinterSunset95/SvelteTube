@@ -31,6 +31,11 @@ onMount(() => {
 
 </script>
 
+<svelte:head>
+	<title>{data.query}</title>
+	<meta name="description" content="Query: {data.query}">
+</svelte:head>
+
 <h1>Search results for "{data.query}"</h1>
 {#if animeList}
 	{#key animeList.results}

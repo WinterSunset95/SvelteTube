@@ -86,6 +86,11 @@ onMount(() => {
 
 </script>
 
+<svelte:head>
+	<title>FireChat - Chat based on firebase</title>
+	<meta name="description" content="Built on the firebase realtime database and sveltekit">
+</svelte:head>
+
 <div class="container">
 	<div class="header">
 		<h2>FireChat</h2>

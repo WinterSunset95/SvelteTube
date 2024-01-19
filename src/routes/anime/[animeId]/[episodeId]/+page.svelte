@@ -38,11 +38,19 @@ onMount(() => {
 });
 </script>
 
+<svelte:head>
+	{#if animeDetails && data}
+		<title>{animeDetails.title} Ep - {data.episodeId.slice(-1)}</title>
+	{:else}
+		<title>Fetching Data</title>
+	{/if}
+</svelte:head>
+
 <div class="container">
 
 	<div class="video">
 		{#if animeEpisode}
-			<Watch {animeEpisode} />
+			<Watch {animeEpisode} {animeDetails} />
 		{:else}
 			Loading...
 		{/if}

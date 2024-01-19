@@ -16,6 +16,14 @@ onMount(initialLoad);
 
 </script>
 
+<svelte:head>
+	{#if anime}
+		<title>{anime.title}</title>
+	{:else}
+		<title>Fetching Data</title>
+	{/if}
+</svelte:head>
+
 {#if anime}
 <div class="container">
 	<div class="thumbnail">
