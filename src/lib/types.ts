@@ -56,3 +56,10 @@ export type GlobalChat = {
 	message: string;
 }
 
+export type RoomData = {
+	animeId: string;
+	episodeId: string;
+	currentTime: number;
+	status: string;
+}
+
