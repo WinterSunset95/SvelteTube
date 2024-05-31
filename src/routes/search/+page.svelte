@@ -2,30 +2,42 @@
 export let data: { query: string };
 
 import type { AnimeData } from '$lib/types.js';
-import type { IAnimeResult, ISearch } from '@consumet/extensions';
+import type { IAnimeResult, ISearch, IMovieResult } from '@consumet/extensions';
 import { onMount } from 'svelte';
 import AnimeList from '$lib/AnimeList.svelte';
-import { ANIME } from '@consumet/extensions';
 
-const gogoanime = new ANIME.Gogoanime();
 let animeList: ISearch<IAnimeResult>;
+let movieList: ISearch<IMovieResult>;
 
 async function loadMore() {
 	if (animeList.hasNextPage) {
-		const resData = await gogoanime.search(data.query, animeList.currentPage! + 1);
-		animeList.results.push(...resData.results);
+		const resData = await fetch(`/api/gogosearch?search=${data.query}&page=${animeList.currentPage! + 1}`);
+		const json: ISearch<IAnimeResult> = await resData.json();
+	}
+	if (movieList.hasNextPage) {
+		const resData2 = await fetch(`/api/movies?search=${data.query}&page=${movieList.currentPage! + 1}`);
+		const json2: ISearch<IMovieResult> = await resData2.json();
 	}
 }
 
-async function initialLoad() {
-	const res = await gogoanime.search(data.query);
-	animeList = res;
+async function animeLoad() {
+	const resData = await fetch(`/api/gogosearch?search=${data.query}`);
+	const json: ISearch<IAnimeResult> = await resData.json();
+	animeList = json;
 }
 
-$: data.query && initialLoad();
+async function movieLoad() {
+	const resData = await fetch(`/api/movies?search=${data.query}`);
+	const json: ISearch<IMovieResult> = await resData.json();
+	movieList = json;
+}
+
+$: data.query && animeLoad();
+$: data.query && movieLoad();
 
 onMount(() => {
-	initialLoad();
+	animeLoad();
+	movieLoad();
 });
 
 </script>
@@ -35,10 +47,19 @@ onMount(() => {
 	<meta name="description" content="Query: {data.query}">
 </svelte:head>
 
-<h1>Search results for "{data.query}"</h1>
+<h1>Anime results for "{data.query}"</h1>
 {#if animeList}
 	{#key animeList.results}
-		<AnimeList data={animeList} loadMoreFunction={loadMore}/>
+		<AnimeList animes={animeList} movies={undefined} loadMoreFunction={loadMore}/>
+	{/key}
+{:else}
+	<p>Loading...</p>
+{/if}
+
+<h1>Movie results for "{data.query}"</h1>
+{#if movieList}
+	{#key movieList.results}
+		<AnimeList animes={undefined} movies={movieList} loadMoreFunction={loadMore}/>
 	{/key}
 {:else}
 	<p>Loading...</p>

@@ -33,7 +33,7 @@
 <h1>Start watching</h1>
 {#if animeList}
 	{#key animeList.results}
-		<AnimeList data={animeList} loadMoreFunction={loadMore}/>
+		<AnimeList animes={animeList} movies={undefined} loadMoreFunction={loadMore}/>
 	{/key}
 {:else}
 	<p>Loading...</p>

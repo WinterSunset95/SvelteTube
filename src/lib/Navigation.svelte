@@ -16,7 +16,7 @@ function toggleTheme() {
 	</h1>
 	<ul>
 		<li>
-			<a href="#">Movies</a>
+			<a href="/movies">Movies</a>
 		</li>
 		<li>
 			<a href="#">Asian Dramas</a>

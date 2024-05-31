@@ -1,15 +1,26 @@
 <script lang="ts">
-import type { AnimeData } from "$lib/types";
-import type { IAnimeResult, ISearch } from "@consumet/extensions";
+import type { IAnimeResult, IMovieResult, ISearch } from "@consumet/extensions";
 
-export let data: ISearch<IAnimeResult>;
+export let animes: ISearch<IAnimeResult> | undefined;
+export let movies: ISearch<IMovieResult> | undefined;
 export let loadMoreFunction: () => Promise<void>;
+
+let data: ISearch<IAnimeResult> | ISearch<IMovieResult>;
+let route: string;
+
+if (animes) {
+	data = animes;
+	route = "anime";
+} else if (movies) {
+	data = movies;
+	route = "movies";
+}
 
 </script>
 
 <div class="list">
 {#each data.results as video}
-	<a class="video" href="/anime/{video.id}">
+	<a class="video" href="/{route}/{video.id}">
 		<div class="thumbnail">
 			<img src={video.image} />
 		</div>
