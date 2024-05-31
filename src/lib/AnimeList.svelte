@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { AnimeData } from "$lib/types";
+import type { IAnimeResult, ISearch } from "@consumet/extensions";
 
-export let data: AnimeData;
+export let data: ISearch<IAnimeResult>;
 export let loadMoreFunction: () => Promise<void>;
 
 </script>
@@ -10,7 +11,7 @@ export let loadMoreFunction: () => Promise<void>;
 {#each data.results as video}
 	<a class="video" href="/anime/{video.id}">
 		<div class="thumbnail">
-			<img src={video.image} alt={video.title} />
+			<img src={video.image} />
 		</div>
 		<div class="details">
 			<div class="padding">

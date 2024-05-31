@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
 let theme = 'light';
 
-let query
+let query: String;
 
 function toggleTheme() {
 	theme = theme === 'light' ? 'dark' : 'light';
@@ -16,10 +16,10 @@ function toggleTheme() {
 	</h1>
 	<ul>
 		<li>
-			<a href="/globalchat">Globalchat</a>
+			<a href="#">Movies</a>
 		</li>
 		<li>
-			<a href="/firechat">FireChat</a>
+			<a href="#">Asian Dramas</a>
 		</li>
 		<li>
 			<a href="#">Rooms</a>

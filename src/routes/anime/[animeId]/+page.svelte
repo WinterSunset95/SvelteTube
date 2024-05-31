@@ -1,15 +1,18 @@
 <script lang="ts">
 export let data: { animeId: string };
 
-import type { AnimeDetails } from '$lib/types';
-import { onMount } from 'svelte';
+import type { IAnimeInfo } from '@consumet/extensions';
 
-let anime: AnimeDetails;
+import { onMount } from 'svelte';
+import { ANIME } from '@consumet/extensions';
+
+const gogoanime = new ANIME.Gogoanime();
+let anime: IAnimeInfo;
 let epCount = 49;
 
 async function initialLoad() {
-	const res = await fetch(`/api/anime?query=${data.animeId}`);
-	anime = await res.json();
+	const res = await gogoanime.fetchAnimeInfo(data.animeId);
+	anime = res;
 }
 
 onMount(initialLoad);

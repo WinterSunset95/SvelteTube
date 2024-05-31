@@ -1,16 +1,19 @@
 <script lang="ts">
 export let data: { animeId: string, episodeId: string };
 
-import type { AnimeDetails, AnimeEpisode } from "$lib/types";
+import type { IAnimeInfo, IEpisodeServer, ISource } from "@consumet/extensions";
 import { onMount } from "svelte";
+import { ANIME, StreamingServers } from "@consumet/extensions";
 import Watch from "./Watch.svelte";
 
-let animeDetails: AnimeDetails;
-let animeEpisode: AnimeEpisode;
+const gogoanime = new ANIME.Gogoanime();
+let animeDetails: IAnimeInfo;
+let animeEpisode: ISource;
+let sources: IEpisodeServer[] = [];
 let epCount = 9;
 
 function nextPage() {
-	if (epCount < animeDetails.episodes.length) {
+	if (epCount < animeDetails.totalEpisodes!) {
 		epCount += 9;
 	}
 }
@@ -21,21 +24,26 @@ function prevPage() {
 	}
 }
 
-async function loaAnimeDetails() {
-	const res = await fetch(`/api/anime?query=${data.animeId}`);
-	animeDetails = await res.json();
+async function loadAnimeDetails() {
+	const res = await gogoanime.fetchAnimeInfo(data.animeId);
+	animeDetails = res;
 }
 
 async function loadAnimeEpisode() {
-	const res = await fetch(`/api/anistream?query=${data.episodeId}`);
-	animeEpisode = await res.json();
-	console.table(animeEpisode);
+	const servers = await gogoanime.fetchEpisodeServers(data.episodeId);
+	sources = servers;
+	console.log(servers)
+
+	const res = await gogoanime.fetchEpisodeSources(data.episodeId, StreamingServers.VidStreaming);
+	animeEpisode = res;
+	console.log(res)
 }
 
 onMount(() => {
-	loaAnimeDetails();
+	loadAnimeDetails();
 	loadAnimeEpisode();
 });
+
 </script>
 
 <svelte:head>
@@ -48,17 +56,15 @@ onMount(() => {
 
 <div class="container">
 
-	<div class="video">
-		{#if animeEpisode}
-			<Watch {animeEpisode} {animeDetails} />
-		{:else}
-			Loading...
-		{/if}
-	</div>
+	{#if sources.length >= 1}
+		<iframe src={sources[1].url} frameborder="0"></iframe>
+	{:else}
+		Loading...
+	{/if}
 
 	<div class="episodes">
 		<ul>
-			{#if animeDetails}
+			{#if animeDetails && animeDetails.episodes}
 				<li>
 					<a href={`/anime/${animeDetails.id}`}>
 						Back
@@ -99,12 +105,14 @@ onMount(() => {
 		gap: 1rem;
 		padding: 0.5rem;
 	}
-	.video {
+	iframe {
 		grid-column: span 12;
 		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		background-color: black;
 	}
 

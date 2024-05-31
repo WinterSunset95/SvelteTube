@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { AnimeDetails, AnimeEpisode, RoomData } from "$lib/types";
+import type { IAnimeInfo, ISource } from "@consumet/extensions";
 import type Player from "video.js/dist/types/player";
-import dotenv from "dotenv";
 
 
-export let animeDetails: AnimeDetails;
-export let animeEpisode: AnimeEpisode;
+export let animeDetails: IAnimeInfo;
+export let animeEpisode: ISource;
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -33,7 +33,7 @@ function setupPlayer() {
 		preload: "auto",
 	});
 	player.src({
-		src: animeEpisode.episode.sources[sourceNumber].url,
+		src: animeEpisode.sources[sourceNumber].url,
 	});
 }
 
@@ -41,7 +41,7 @@ function changeSource() {
 	serverUrl = "default"
 	if (player) {
 		player.src({
-			src: animeEpisode.episode.sources[sourceNumber].url,
+			src: animeEpisode.sources[sourceNumber].url,
 		});
 		player.currentTime(secondsCount);
 		player.play();
@@ -72,17 +72,11 @@ onMount(() => {
 </div>
 <div class="links">
 	<select bind:value={sourceNumber} name="quality" id="quality">
-		{#each animeEpisode.episode.sources as source, i}
+		{#each animeEpisode.sources as source, i}
 			<option value={i}>{source.quality}</option>
 		{/each}
 	</select>
-	<a target="_blank" class="link" href={animeEpisode.episode.download}>Download</a>
-	<select bind:value={serverUrl} name="server" id="server">
-		<option value="default">Default</option>
-		{#each animeEpisode.servers as server}
-			<option value={server.url}>{server.name}</option>
-		{/each}
-	</select>
+	<a target="_blank" class="link" href={animeEpisode.download}>Download</a>
 </div>
 
 <style>
