@@ -5,7 +5,7 @@ import type Player from "video.js/dist/types/player";
 
 
 export let animeDetails: IAnimeInfo;
-export let animeEpisode: ISource;
+export let animeEpisode: AnimeEpisode;
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";

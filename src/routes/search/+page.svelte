@@ -2,25 +2,24 @@
 export let data: { query: string };
 
 import type { AnimeData } from '$lib/types.js';
+import type { IAnimeResult, ISearch } from '@consumet/extensions';
 import { onMount } from 'svelte';
 import AnimeList from '$lib/AnimeList.svelte';
+import { ANIME } from '@consumet/extensions';
 
-let animeList: AnimeData;
+const gogoanime = new ANIME.Gogoanime();
+let animeList: ISearch<IAnimeResult>;
 
 async function loadMore() {
 	if (animeList.hasNextPage) {
-		animeList.currentPage++;
-		const res = await fetch(`/api/animesearch?query=${data.query}&page=${animeList.currentPage}`);
-		const resData: AnimeData = await res.json();
-		animeList.hasNextPage = resData.hasNextPage;
-		animeList.currentPage = resData.currentPage;
+		const resData = await gogoanime.search(data.query, animeList.currentPage! + 1);
 		animeList.results.push(...resData.results);
 	}
 }
 
 async function initialLoad() {
-	const res = await fetch(`/api/animesearch?query=${data.query}`);
-	animeList = await res.json();
+	const res = await gogoanime.search(data.query);
+	animeList = res;
 }
 
 $: data.query && initialLoad();

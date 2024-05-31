@@ -2,13 +2,14 @@
 export let data: { animeId: string, episodeId: string };
 
 import type { IAnimeInfo, IEpisodeServer, ISource } from "@consumet/extensions";
+import type { AnimeEpisode } from "$lib/types";
 import { onMount } from "svelte";
 import { ANIME, StreamingServers } from "@consumet/extensions";
 import Watch from "./Watch.svelte";
 
 const gogoanime = new ANIME.Gogoanime();
 let animeDetails: IAnimeInfo;
-let animeEpisode: ISource;
+let animeEpisode: AnimeEpisode;
 let sources: IEpisodeServer[] = [];
 let epCount = 9;
 
@@ -30,13 +31,14 @@ async function loadAnimeDetails() {
 }
 
 async function loadAnimeEpisode() {
+	const res = await fetch(`/api/gogoepisode?id=${data.episodeId}`);
+	const myjson = await res.json();
+	animeEpisode = myjson;
+	console.log(animeEpisode);
+
 	const servers = await gogoanime.fetchEpisodeServers(data.episodeId);
 	sources = servers;
-	console.log(servers)
-
-	const res = await gogoanime.fetchEpisodeSources(data.episodeId, StreamingServers.VidStreaming);
-	animeEpisode = res;
-	console.log(res)
+	console.log(servers);
 }
 
 onMount(() => {
@@ -46,6 +48,7 @@ onMount(() => {
 
 </script>
 
+	
 <svelte:head>
 	{#if animeDetails && data}
 		<title>{animeDetails.title} Ep - {data.episodeId.slice(-1)}</title>
@@ -54,13 +57,19 @@ onMount(() => {
 	{/if}
 </svelte:head>
 
+{#key data.episodeId}
+
 <div class="container">
 
-	{#if sources.length >= 1}
-		<iframe src={sources[1].url} frameborder="0"></iframe>
-	{:else}
-		Loading...
-	{/if}
+	<div class="video">
+		{#if animeEpisode}
+			{#key data.episodeId}
+				<Watch {animeEpisode} {animeDetails} />
+			{/key}
+		{:else}
+			Loading...
+		{/if}
+	</div>
 
 	<div class="episodes">
 		<ul>
@@ -98,6 +107,8 @@ onMount(() => {
 	
 </div>
 
+{/key}
+
 <style>
 	.container {
 		display: grid;
@@ -105,7 +116,8 @@ onMount(() => {
 		gap: 1rem;
 		padding: 0.5rem;
 	}
-	iframe {
+
+	.video {
 		grid-column: span 12;
 		width: 100%;
 		height: 100%;

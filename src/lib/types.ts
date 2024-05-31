@@ -33,22 +33,14 @@ export type AnimeDetails = {
 }
 
 export type AnimeEpisode = {
-	episode: {
-		sources: [
-			{
-				url: string;
-				isM3U8: boolean;
-				quality: string;
-			}
-		];
-		download: string;
-	};
-	servers: [
+	sources: [
 		{
-			name: string;
 			url: string;
+			isM3U8: boolean;
+			quality: string;
 		}
-	]
+	];
+	download: string;
 }
 
 export type GlobalChat = {
