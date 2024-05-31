@@ -71,6 +71,7 @@ onMount(() => {
 		{/if}
 	</div>
 
+	<!--
 	<div class="episodes">
 		<ul>
 			{#if animeDetails && animeDetails.episodes}
@@ -95,12 +96,13 @@ onMount(() => {
 			<button on:click={() => animeDetails.episodes.length-epCount > 99 ? epCount += 99 : null}> &gt;&gt; </button>
 		</div>
 	</div>
+	-->
 
 	{#if animeDetails}
 	<div class="details">
 		<h2>{animeDetails.title}</h2>
 		<div>
-			<span>Episode: </span> {data.episodeId.slice(-1)}
+			<span>Episode: </span> {data.episodeId.split("-")[data.episodeId.split("-").length-1]}
 		</div>
 	</div>
 	{/if}
@@ -192,7 +194,7 @@ onMount(() => {
 
 	@media (min-width: 768px) {
 		.video {
-			grid-column: span 8;
+			grid-column: span 12;
 		}
 		.episodes {
 			grid-column: span 4;

@@ -9,7 +9,21 @@ console.log($page.url.pathname)
 {#if $page.url.pathname == "/globalchat" || $page.url.pathname == "/firechat"}
 	<slot />
 {:else}
-	<Navigation />
-	<slot />
-	<Footer />
+	<div class="container">
+		<div class="nav">
+			<Navigation />
+		</div>
+		<div class="main">
+			<slot />
+		</div>
+		<div class="footer">
+			<Footer />
+		</div>
+	</div>
 {/if}
+
+<style>
+.main {
+	min-height: 100dvh;
+}
+</style>
