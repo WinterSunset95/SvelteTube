@@ -19,13 +19,13 @@ function toggleTheme() {
 			<a href="/movies">Movies</a>
 		</li>
 		<li>
-			<a href="#">Asian Dramas</a>
+			<a href="/asian">Asian Dramas</a>
 		</li>
 		<li>
-			<a href="#">Rooms</a>
+			<a href="/rooms">Rooms</a>
 		</li>
 		<li>
-			<a href="#">About</a>
+			<a href="/about">About</a>
 		</li>
 		<li>
 			<button class="icon" on:click={toggleTheme}>

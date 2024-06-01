@@ -17,3 +17,13 @@ onMount(() => {
 })
 
 </script>
+
+<h1>The movies provider is not working</h1>
+<h1>Apologies for the inconvenience</h1>
+
+<style>
+h1 {
+	text-align: center;
+	padding: 1rem;
+}
+</style>
