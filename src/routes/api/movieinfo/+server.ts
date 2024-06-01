@@ -1,5 +1,5 @@
 import { MOVIES } from "@consumet/extensions";
-const flixhq = new MOVIES.FlixHQ();
+const flixhq = new MOVIES.MovieHdWatch();
 
 export async function GET({ fetch, url }) {
 	let type = url.searchParams.get("type");

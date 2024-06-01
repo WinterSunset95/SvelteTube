@@ -2,7 +2,7 @@
 
 export let data: { type: string, movieId: string };
 
-import type { IMovieInfo } from "@consumet/extensions";
+import { TvType, type IMovieInfo } from "@consumet/extensions";
     import { onMount } from "svelte";
 
 let movie: IMovieInfo;
@@ -12,6 +12,7 @@ async function initialLoad() {
 	const res = await fetch(`/api/movieinfo?type=${data.type}&id=${data.movieId}`);
 	const json: IMovieInfo = await res.json();
 	movie = json;
+	console.log(movie)
 }
 
 onMount(() => {
@@ -41,7 +42,7 @@ onMount(() => {
 		{/each}
 		</ul>
 		<div>
-			<span>Total episodes: </span> {movie.totalEpisodes}
+			<span>Total episodes: </span> {movie.type === TvType.MOVIE ? "1" : movie.totalEpisodes ? movie.totalEpisodes : "N/A"}
 		</div>
 		<div>
 			<span>Release date: </span> {movie.releaseDate}
@@ -50,28 +51,34 @@ onMount(() => {
 			<span>Description: </span> {movie.description}
 		</div>
 		<div>
-			<span>Sub or Dub: </span> {movie.subOrDub}
+			<span>Sub or Dub: </span> {movie.subOrDub ? movie.subOrDub : "N/A"}
 		</div>
 		<div>
 			<span>Type: </span> {movie.type}
 		</div>
 		<div>
-			<span>Status: </span> {movie.status}
+			<span>Status: </span> {movie.status ? movie.status : "N/A"}
 		</div>
 		<div>
-			<span>Other name(s): </span> {movie.otherName}
+			<span>Other name(s): </span> {movie.otherName ? movie.otherName : "N/A"}
 		</div>
 	</div>
 	{#if movie.episodes}
 	<div class="episodes">
 		<ul>
-			{#each movie.episodes.slice(0, epCount) as episode}
+			{#if movie.type == TvType.MOVIE}
 				<li>
-					<a href={`/movies/${movie.id}/${episode.id}`}>
-						Ep {episode.number}
-					</a>
+					<a href={`/movies/${movie.id}/${movie.episodes[0].id}`}>Watch {movie.title}</a>
 				</li>
-			{/each}
+			{:else}
+				{#each movie.episodes.slice(0, epCount) as episode}
+					<li>
+						<a href={`/movies/${movie.id}/${episode.id}`}>
+							Ep {episode.number ? episode.number : "1"}
+						</a>
+					</li>
+				{/each}
+			{/if}
 			{#if epCount < movie.episodes.length}
 				<button on:click={() => epCount += 50}>More . . . </button>
 			{/if}
