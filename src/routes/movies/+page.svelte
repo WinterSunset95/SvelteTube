@@ -6,10 +6,13 @@ import AnimeList from "$lib/AnimeList.svelte";
 import { onMount } from "svelte";
 
 const flixhq = new MOVIES.FlixHQ();
-let movies: ISearch<IMovieResult>;
+let movies: {
+	popular: ISearch<IMovieResult>,
+	trending: ISearch<IMovieResult>
+};
 
 async function getMovies() {
-	const res = await fetch(`/api/movies?search= `);
+	const res = await fetch(`/api/movies`);
 	const data = await res.json();
 	movies = data;
 }
@@ -20,13 +23,27 @@ onMount(() => {
 
 </script>
 
-<h1>Start Watching</h1>
+<h1>Trending</h1>
 {#if movies}
-	{#key movies.results}
-		<AnimeList animes={undefined} movies={movies} loadMoreFunction={getMovies}/>
+	{#key movies.trending.results}
+		<AnimeList animes={undefined} movies={movies.trending} loadMoreFunction={undefined}/>
 	{/key}
 {:else}
 	<p>Loading...</p>
 {/if}
 
+<h1>Popular</h1>
+{#if movies}
+	{#key movies.popular.results}
+		<AnimeList animes={undefined} movies={movies.popular} loadMoreFunction={undefined}/>
+	{/key}
+{:else}
+	<p>Loading...</p>
+{/if}
+
+<style>
+h1 {
+	padding: 1rem;
+}
+</style>
 

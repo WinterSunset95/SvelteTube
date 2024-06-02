@@ -55,3 +55,68 @@ export type RoomData = {
 	status: string;
 }
 
+export interface TMDBitem {
+	backdrop_path: string;
+	id: string;
+	original_title: string;
+	overview: string;
+	poster_path: string;
+	media_type: string;
+	adult: boolean;
+	title: string;
+	original_language: string;
+	genre_ids: number[];
+	popularity: number;
+	release_date: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+}
+
+export interface TMDBresult<T> {
+	page: number;
+	results: T[];
+	total_pages: number;
+	total_results: number;
+}
+
+export interface TMDBMovieInfo {
+	adult: boolean;
+	backdrop_path: string;
+	belongs_to_collection: {
+		id: string;
+		name: string;
+		poster_path: string;
+		backdrop_path: string;
+	};
+	budget: string;
+	genres: [
+		{
+			id: number;
+			name: string;
+		}
+	];
+	homepage: string;
+	id: number | string;
+	imdb_id: string;
+	origin_country: [string];
+	original_language: string;
+	original_title: string;
+	overview: string;
+	popularity: string;
+	poster_path: string;
+	production_companies: [{
+		id: number;
+		logo_path: string;
+		name: string;
+		origin_country: string;
+	}];
+	production_countries: [{
+		name: string;
+	}];
+	release_date: string;
+	revenue: number;
+	runtime: number;
+	status: string;
+	vote_average: number;
+}

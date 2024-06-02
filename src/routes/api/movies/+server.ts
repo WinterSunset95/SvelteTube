@@ -1,17 +1,47 @@
-import { MOVIES } from "@consumet/extensions"
-const flixhq = new MOVIES.MovieHdWatch()
+import type { ISearch, IMovieResult } from "@consumet/extensions"
+import type { TMDBitem, TMDBresult } from "$lib/types";
+import { movieTrending, moviePopular, movieSearch, tmdbToConsumet } from "$lib/config";
 
 export async function GET({ fetch, url }) {
-	let query = url.searchParams.get("search")
-	let page = url.searchParams.get("page")
+	let query = url.searchParams.get("search");
 
-	let data;
+	if (!query) {
+		let trending: ISearch<IMovieResult>;
+		let popular: ISearch<IMovieResult>;
 
-	if (query == "") {
-		data = await flixhq.search(" ")
+		let trendingRes = await fetch(movieTrending);
+		let trendingRawData = await trendingRes.json();
+
+		let trendingContents: TMDBresult<TMDBitem> = JSON.parse(trendingRawData.contents);
+		trending = tmdbToConsumet(trendingContents); 
+
+		let popularRes = await fetch(moviePopular);
+		let popularRawData = await popularRes.json();
+
+		let popularContents: TMDBresult<TMDBitem> = JSON.parse(popularRawData.contents);
+		popular = tmdbToConsumet(popularContents);
+
+		let data: {
+			popular: ISearch<IMovieResult>,
+			trending: ISearch<IMovieResult>
+		} = {
+			popular: popular,
+			trending: trending
+		}
+
+		return new Response(JSON.stringify(data));
 	} else {
-		data = await flixhq.search(query, page)
-	}
+		let res = await fetch(`${movieSearch}${query}`)
+		let search = await res.json();
+		let data: ISearch<IMovieResult>;
 
-	return new Response(JSON.stringify(data));
+		try {
+			let parsedSearch: TMDBresult<TMDBitem> = JSON.parse(search)
+			data = tmdbToConsumet(parsedSearch);
+		} catch {
+			data = tmdbToConsumet(search);
+		}
+
+		return new Response(JSON.stringify(data));
+	}
 }

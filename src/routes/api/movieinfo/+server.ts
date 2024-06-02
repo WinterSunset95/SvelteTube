@@ -1,11 +1,18 @@
-import { MOVIES } from "@consumet/extensions";
-const flixhq = new MOVIES.MovieHdWatch();
+import type { IMovieInfo } from "@consumet/extensions";
+import type { TMDBMovieInfo } from "$lib/types";
+import { movieInfo, infoTmdbToConsumet } from "$lib/config";
 
 export async function GET({ fetch, url }) {
-	let type = url.searchParams.get("type");
-	let movieId = url.searchParams.get("id");
 
-	let data = await flixhq.fetchMediaInfo(`${type}/${movieId}`);
+	let movieId = url.searchParams.get("movieId");
+
+	let data: IMovieInfo;
+	let res = await fetch(movieInfo(movieId))
+	let json = await res.json();
+	let contents: TMDBMovieInfo = JSON.parse(json.contents);
+	console.log(contents)
+	data = infoTmdbToConsumet(contents);
+	console.log(data)
 
 	return new Response(JSON.stringify(data));
 }

@@ -3,7 +3,7 @@ import type { IAnimeResult, IMovieResult, ISearch } from "@consumet/extensions";
 
 export let animes: ISearch<IAnimeResult> | undefined;
 export let movies: ISearch<IMovieResult> | undefined;
-export let loadMoreFunction: () => Promise<void>;
+export let loadMoreFunction: () => Promise<void> | undefined;
 
 let data: ISearch<IAnimeResult> | ISearch<IMovieResult>;
 let route: string;
@@ -27,13 +27,13 @@ if (animes) {
 		<div class="details">
 			<div class="padding">
 				<h4>{video.title}</h4>
-				<p>{video.releaseDate} | {video.subOrDub}</p>
+				<p>{video.releaseDate} | {video.subOrDub ? video.subOrDub : video.type}</p>
 			</div>
 		</div>
 	</a>
 {/each}
 </div>
-{#if data.hasNextPage}
+{#if data.hasNextPage && loadMoreFunction}
 	<button on:click={loadMoreFunction}>Load More</button>
 {/if}
 
@@ -51,9 +51,10 @@ if (animes) {
 .list {
 	display: grid;
 	gap: 1rem;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	padding: 0.5rem;
 }
+
 .video {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -61,9 +62,11 @@ if (animes) {
 	border-radius: 0.5rem;
 	overflow: hidden;
 }
+
 .thumbnail{
 	grid-column: 1 / 2;
 	grid-row: 1 / 2;
+	aspect-ratio: 9 / 16;
 }
 .details {
 	grid-column: 1 / 2;
