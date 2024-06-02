@@ -8,6 +8,7 @@ import AnimeList from '$lib/AnimeList.svelte';
 
 let animeList: ISearch<IAnimeResult>;
 let movieList: ISearch<IMovieResult>;
+let tvList: ISearch<IMovieResult>;
 
 async function loadMore() {
 	if (animeList.hasNextPage) {
@@ -32,12 +33,20 @@ async function movieLoad() {
 	movieList = json;
 }
 
+async function tvLoad() {
+	const resData = await fetch(`/api/tv?search=${data.query}`);
+	const json: ISearch<IMovieResult> = await resData.json();
+	tvList = json;
+}
+
 $: data.query && animeLoad();
 $: data.query && movieLoad();
+$: data.query && tvLoad();
 
 onMount(() => {
 	animeLoad();
 	movieLoad();
+	tvLoad();
 });
 
 </script>
@@ -60,6 +69,15 @@ onMount(() => {
 {#if movieList}
 	{#key movieList.results}
 		<AnimeList animes={undefined} movies={movieList} loadMoreFunction={loadMore}/>
+	{/key}
+{:else}
+	<p>Loading...</p>
+{/if}
+
+<h1>TV results for "{data.query}"</h1>
+{#if tvList}
+	{#key tvList.results}
+		<AnimeList tv={tvList}/>
 	{/key}
 {:else}
 	<p>Loading...</p>

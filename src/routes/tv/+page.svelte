@@ -4,15 +4,15 @@ import type { IMovieResult, ISearch } from "@consumet/extensions";
 import AnimeList from "$lib/AnimeList.svelte";
 import { onMount } from "svelte";
 
-let movies: {
+let tv: {
 	popular: ISearch<IMovieResult>,
 	trending: ISearch<IMovieResult>
 };
 
 async function getMovies() {
-	const res = await fetch(`/api/movies`);
+	const res = await fetch(`/api/tv`);
 	const data = await res.json();
-	movies = data;
+	tv = data;
 }
 
 onMount(() => {
@@ -22,18 +22,18 @@ onMount(() => {
 </script>
 
 <h1>Trending</h1>
-{#if movies}
-	{#key movies.trending.results}
-		<AnimeList animes={undefined} movies={movies.trending} loadMoreFunction={undefined}/>
+{#if tv}
+	{#key tv.trending.results}
+		<AnimeList tv={tv.trending} />
 	{/key}
 {:else}
 	<p>Loading...</p>
 {/if}
 
 <h1>Popular</h1>
-{#if movies}
-	{#key movies.popular.results}
-		<AnimeList animes={undefined} movies={movies.popular} loadMoreFunction={undefined}/>
+{#if tv}
+	{#key tv.popular.results}
+		<AnimeList tv={tv.popular} />
 	{/key}
 {:else}
 	<p>Loading...</p>

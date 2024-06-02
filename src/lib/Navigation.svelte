@@ -19,7 +19,10 @@ function toggleTheme() {
 			<a href="/movies">Movies</a>
 		</li>
 		<li>
-			<a href="/asian">Asian Dramas</a>
+			<a href="/tv">TV</a>
+		</li>
+		<li>
+			<a href="/asian">Asian</a>
 		</li>
 		<li>
 			<a href="/rooms">Rooms</a>

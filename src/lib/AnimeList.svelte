@@ -3,6 +3,7 @@ import type { IAnimeResult, IMovieResult, ISearch } from "@consumet/extensions";
 
 export let animes: ISearch<IAnimeResult> | undefined;
 export let movies: ISearch<IMovieResult> | undefined;
+export let tv: ISearch<IMovieResult> | undefined;
 export let loadMoreFunction: () => Promise<void> | undefined;
 
 let data: ISearch<IAnimeResult> | ISearch<IMovieResult>;
@@ -14,6 +15,9 @@ if (animes) {
 } else if (movies) {
 	data = movies;
 	route = "movies";
+} else if (tv) {
+	data = tv;
+	route = "tv";
 }
 
 </script>
