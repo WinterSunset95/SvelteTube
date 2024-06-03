@@ -18,13 +18,13 @@ async function initialLoad() {
 	const res = await fetch(`/api/tvinfo?movieId=${data.id}`);
 	let json = await res.json();
 	tv = json;
+	console.log(tv);
 	listOfSeasons = tv.seasons
 	thumbnail = `https://image.tmdb.org/t/p/w500${tv.poster_path}`
-	console.log(tv);
 }
 
-$: if (season) {
-	currentSeason = listOfSeasons[season]
+$: if (season && tv.seasons && listOfSeasons) {
+	currentSeason = listOfSeasons[season-1]
 	thumbnail = `https://image.tmdb.org/t/p/w500${currentSeason.poster_path}`
 	episodes = [];
 	for (let i = 0; i < currentSeason.episode_count; i++) {
