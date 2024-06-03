@@ -55,7 +55,7 @@ if (animes) {
 .list {
 	display: grid;
 	gap: 1rem;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	padding: 0.5rem;
 }
 
@@ -96,5 +96,11 @@ button {
 	border: none;
 	border-radius: 0.5rem;
 	color: var(--text);
+}
+
+@media only screen and (min-width: 768px) {
+	.list {
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	}
 }
 </style>

@@ -68,7 +68,7 @@ onMount(() => {
 <h1>Movie results for "{data.query}"</h1>
 {#if movieList}
 	{#key movieList.results}
-		<AnimeList animes={undefined} movies={movieList} loadMoreFunction={loadMore}/>
+		<AnimeList movies={movieList}/>
 	{/key}
 {:else}
 	<p>Loading...</p>
