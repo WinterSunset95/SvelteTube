@@ -23,7 +23,7 @@ onMount(() => {
 
 <h1>Trending</h1>
 {#if movies}
-	{#key movies.trending.results}
+	{#key movies.trending?.results}
 		<AnimeList animes={undefined} movies={movies.trending} loadMoreFunction={undefined}/>
 	{/key}
 {:else}
@@ -32,7 +32,7 @@ onMount(() => {
 
 <h1>Popular</h1>
 {#if movies}
-	{#key movies.popular.results}
+	{#key movies.popular?.results}
 		<AnimeList animes={undefined} movies={movies.popular} loadMoreFunction={undefined}/>
 	{/key}
 {:else}

@@ -38,7 +38,7 @@ export type AnimeEpisode = {
 			url: string;
 			isM3U8: boolean;
 			quality: string;
-		}
+		} | undefined
 	];
 	download: string;
 }

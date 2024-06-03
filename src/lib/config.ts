@@ -3,6 +3,7 @@ import { type ISearch, type IMovieResult, type IMovieInfo, TvType, MediaStatus }
 import { TMDB_API_KEY } from "$env/static/private"
 
 export const appProxy = "https://api.allorigins.win/get?url="
+//export const appProxy = "";
 export const movieTrending = `${appProxy}https://api.themoviedb.org/3/trending/movie/day?api_key=${TMDB_API_KEY}`
 export const moviePopular = `${appProxy}https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}`
 export const movieSearch = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=`
@@ -11,6 +12,9 @@ export const tvTrending = `${appProxy}https://api.themoviedb.org/3/trending/tv/d
 export const tvPopular = `${appProxy}https://api.themoviedb.org/3/tv/popular?api_key=${TMDB_API_KEY}`
 export const tvSearch = `https://api.themoviedb.org/3/search/tv?api_key=${TMDB_API_KEY}&query=`
 export const tvInfo = (id: string): string => `${appProxy}https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_API_KEY}`;
+export const dramaCoolSearch = "https://consumet-api-dgfy.vercel.app/movies/dramacool/"
+export const dramaCoolInfo = "https://consumet-api-dgfy.vercel.app/movies/dramacool/info?id="
+export const dramaCoolEpInfo = (mediaId: string, episodeId: string) => `https://consumet-api-dgfy.vercel.app/movies/dramacool/watch?episodeId=${episodeId}&mediaId=${mediaId}`
 
 export function tmdbToConsumet(content: TMDBresult<TMDBitem>): ISearch<IMovieResult> {
 	// Will convert TMDBResult<TMDBitem> to ISearch<IMovieResult>

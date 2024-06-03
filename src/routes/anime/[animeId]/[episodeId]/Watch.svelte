@@ -4,8 +4,21 @@ import type { IAnimeInfo, ISource } from "@consumet/extensions";
 import type Player from "video.js/dist/types/player";
 
 
-export let animeDetails: IAnimeInfo;
+export let animeDetails: IAnimeInfo | undefined;
+export let dramaDetails: ISource;
 export let animeEpisode: AnimeEpisode;
+
+let data: ISource | AnimeEpisode;
+
+if (dramaDetails) {
+	data = dramaDetails
+} else if (animeEpisode) {
+	data = animeEpisode
+} else {
+	data = animeEpisode
+}
+
+console.log(data);
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -33,7 +46,7 @@ function setupPlayer() {
 		preload: "auto",
 	});
 	player.src({
-		src: animeEpisode.sources[sourceNumber].url,
+		src: data.sources[sourceNumber].url,
 	});
 }
 
@@ -41,7 +54,7 @@ function changeSource() {
 	serverUrl = "default"
 	if (player) {
 		player.src({
-			src: animeEpisode.sources[sourceNumber].url,
+			src: data.sources[sourceNumber].url,
 		});
 		player.currentTime(secondsCount);
 		player.play();
@@ -72,11 +85,13 @@ onMount(() => {
 </div>
 <div class="links">
 	<select bind:value={sourceNumber} name="quality" id="quality">
-		{#each animeEpisode.sources as source, i}
+		{#if data.sources}
+		{#each data.sources as source, i}
 			<option value={i}>{source.quality}</option>
 		{/each}
+		{/if}
 	</select>
-	<a target="_blank" class="link" href={animeEpisode.download}>Download</a>
+	<a target="_blank" class="link" href={data?.download}>Download</a>
 </div>
 
 <style>

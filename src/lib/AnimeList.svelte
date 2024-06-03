@@ -4,6 +4,8 @@ import type { IAnimeResult, IMovieResult, ISearch } from "@consumet/extensions";
 export let animes: ISearch<IAnimeResult> | undefined;
 export let movies: ISearch<IMovieResult> | undefined;
 export let tv: ISearch<IMovieResult> | undefined;
+export let drama: ISearch<IMovieResult> | undefined;
+
 export let loadMoreFunction: () => Promise<void> | undefined;
 
 let data: ISearch<IAnimeResult> | ISearch<IMovieResult>;
@@ -11,31 +13,40 @@ let route: string;
 
 if (animes) {
 	data = animes;
-	route = "anime";
+	route = "/anime/";
 } else if (movies) {
 	data = movies;
-	route = "movies";
+	route = "/movies/";
 } else if (tv) {
 	data = tv;
-	route = "tv";
+	route = "/tv/";
+} else if (drama) {
+	data = drama;
+	route = "";
 }
 
 </script>
 
 <div class="list">
-{#each data.results as video}
-	<a class="video" href="/{route}/{video.id}">
-		<div class="thumbnail">
-			<img src={video.image} />
-		</div>
-		<div class="details">
-			<div class="padding">
-				<h4>{video.title}</h4>
-				<p>{video.releaseDate} | {video.subOrDub ? video.subOrDub : video.type}</p>
+{#if data.results}
+	{#each data.results as video}
+		<a class="video" href="{route}{video.id}">
+			<div class="thumbnail">
+				<img src={video.image} />
 			</div>
-		</div>
-	</a>
-{/each}
+			<div class="details">
+				<div class="padding">
+					<h4>{video.title}</h4>
+					{#if !drama}
+						<p>{video.releaseDate} | {video.subOrDub ? video.subOrDub : video.type}</p>
+					{/if}
+				</div>
+			</div>
+		</a>
+	{/each}
+{:else}
+	<p>An error occured</p>
+{/if}
 </div>
 {#if data.hasNextPage && loadMoreFunction}
 	<button on:click={loadMoreFunction}>Load More</button>

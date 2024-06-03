@@ -22,7 +22,7 @@ function toggleTheme() {
 			<a href="/tv">TV</a>
 		</li>
 		<li>
-			<a href="/asian">Asian</a>
+			<a href="/drama-detail">Asian</a>
 		</li>
 		<li>
 			<a href="/rooms">Rooms</a>

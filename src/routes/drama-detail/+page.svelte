@@ -2,13 +2,14 @@
 
 import type { IMovieResult, IMovieInfo, ISearch } from "@consumet/extensions";
 import { onMount } from "svelte";
+import AnimeList from "$lib/AnimeList.svelte";
 
-let movies: ISearch<IMovieResult>;
+let drama: ISearch<IMovieResult>;
 
 async function initialLoad() {
 	const res = await fetch("/api/asian?search=");
 	const data: ISearch<IMovieResult> = await res.json();
-	movies = data;
+	drama = data;
 	console.log(data);
 }
 
@@ -18,8 +19,14 @@ onMount(() =>
 
 </script>
 
-<h1>Provider is not working at this moment</h1>
-<h1>Apologies for the inconvenience</h1>
+<h1>Trending</h1>
+{#if drama}
+	{#key drama.results}
+		<AnimeList drama={drama}/>
+	{/key}
+{:else}
+	<p>Loading...</p>
+{/if}
 
 <style>
 h1 {

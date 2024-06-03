@@ -7,17 +7,14 @@ export async function GET({ fetch, url }) {
 
 	if (!query) {
 		let trending: ISearch<IMovieResult>;
-		let popular: ISearch<IMovieResult>;
-
 		let trendingRes = await fetch(movieTrending);
 		let trendingRawData = await trendingRes.json();
-
 		let trendingContents: TMDBresult<TMDBitem> = JSON.parse(trendingRawData.contents);
 		trending = tmdbToConsumet(trendingContents); 
 
+		let popular: ISearch<IMovieResult>;
 		let popularRes = await fetch(moviePopular);
 		let popularRawData = await popularRes.json();
-
 		let popularContents: TMDBresult<TMDBitem> = JSON.parse(popularRawData.contents);
 		popular = tmdbToConsumet(popularContents);
 
