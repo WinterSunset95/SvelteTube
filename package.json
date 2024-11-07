@@ -37,8 +37,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@consumet/extensions": "^1.6.0",
+		"@consumet/extensions": "^1.8.1",
 		"@sveltejs/adapter-node": "^3.0.1",
-		"cloudscraper": "^4.6.0"
+		"cloudscraper": "^4.6.0",
+		"request": "^2.88.2"
 	}
 }

@@ -7,6 +7,10 @@
 
 	let animeList: ISearch<IAnimeResult>;
 	const gogoanime = new ANIME.Gogoanime();
+	const zoroanime = new ANIME.Zoro();
+	const anify = new ANIME.Anify();
+	const animepahe = new ANIME.AnimePahe();
+	const arrayOfProviders = [gogoanime, zoroanime, anify, animepahe];
 
 	async function loadMore() {
 		if (animeList.hasNextPage) {
@@ -20,6 +24,10 @@
 	}
 
 	async function initialLoad() {
+		arrayOfProviders.map(async (provider) => {
+			//const res = await provider.search(" ");
+			//console.log("Provider: ", res);
+		})
 		const res = await gogoanime.search(" ");
 		console.log(res);
 		animeList = res;
