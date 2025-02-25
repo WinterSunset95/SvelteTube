@@ -30,6 +30,7 @@ export async function GET({ fetch, url }) {
 	} else {
 		let res = await fetch(`${movieSearch}${query}`)
 		let search = await res.json();
+		console.log("Search result: " + search)
 		let data: ISearch<IMovieResult>;
 
 		try {

@@ -43,6 +43,15 @@ export type AnimeEpisode = {
 	download: string;
 }
 
+export type AnimeEpisodev2 = {
+	[
+		{
+			name: string;
+			url: string;
+		}
+	]
+}
+
 export type GlobalChat = {
 	name: string;
 	message: string;

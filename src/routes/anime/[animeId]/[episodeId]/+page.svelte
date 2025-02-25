@@ -9,7 +9,7 @@ import Watch from "./Watch.svelte";
 
 const gogoanime = new ANIME.Gogoanime();
 let animeDetails: IAnimeInfo;
-let animeEpisode: AnimeEpisode;
+let animeEpisode: ISource;
 let sources: IEpisodeServer[] = [];
 let epCount = 9;
 
@@ -32,13 +32,14 @@ async function loadAnimeDetails() {
 
 async function loadAnimeEpisode() {
 	const res = await fetch(`/api/gogoepisode?id=${data.episodeId}`);
-	const myjson = await res.json();
+	console.log(res)
+	const myjson = await res.json() as ISource;
 	animeEpisode = myjson;
 	console.log(animeEpisode);
 
 	const servers = await gogoanime.fetchEpisodeServers(data.episodeId);
 	sources = servers;
-	console.log(servers);
+	console.log(sources);
 }
 
 onMount(() => {

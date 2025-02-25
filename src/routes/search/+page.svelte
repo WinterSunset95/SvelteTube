@@ -5,6 +5,7 @@ import type { AnimeData } from '$lib/types.js';
 import type { IAnimeResult, ISearch, IMovieResult } from '@consumet/extensions';
 import { onMount } from 'svelte';
 import AnimeList from '$lib/AnimeList.svelte';
+import Loading from '$lib/Loading.svelte';
 
 let animeList: ISearch<IAnimeResult>;
 let movieList: ISearch<IMovieResult>;
@@ -68,37 +69,37 @@ onMount(() => {
 <h1>Anime results for "{data.query}"</h1>
 {#if animeList}
 	{#key animeList.results}
-		<AnimeList animes={animeList} movies={undefined} loadMoreFunction={loadMore}/>
+		<AnimeList animes={animeList} movies={undefined} tv={undefined} drama={undefined} loadMoreFunction={loadMore}/>
 	{/key}
 {:else}
-	<p>Loading...</p>
+	<Loading />
 {/if}
 
 <h1>Movie results for "{data.query}"</h1>
 {#if movieList}
 	{#key movieList.results}
-		<AnimeList movies={movieList}/>
+		<AnimeList animes={undefined} movies={movieList} tv={undefined} drama={undefined} loadMoreFunction={async () => {}}/>
 	{/key}
 {:else}
-	<p>Loading...</p>
+	<Loading />
 {/if}
 
 <h1>TV results for "{data.query}"</h1>
 {#if tvList}
 	{#key tvList.results}
-		<AnimeList tv={tvList}/>
+		<AnimeList animes={undefined} movies={undefined} tv={tvList} drama={undefined} loadMoreFunction={async () => {}}/>
 	{/key}
 {:else}
-	<p>Loading...</p>
+	<Loading />
 {/if}
 
 <h1>Drama results for "{data.query}"</h1>
 {#if dramaList}
 	{#key dramaList.results}
-		<AnimeList drama={dramaList}/>
+		<AnimeList animes={undefined} movies={undefined} tv={tvList} drama={dramaList} loadMoreFunction={async () => {}}/>
 	{/key}
 {:else}
-	<p>Loading...</p>
+	<Loading />
 {/if}
 
 <style>

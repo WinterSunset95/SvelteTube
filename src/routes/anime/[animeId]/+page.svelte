@@ -12,7 +12,12 @@ let epCount = 49;
 
 async function initialLoad() {
 	const res = await gogoanime.fetchAnimeInfo(data.animeId);
+	console.log(res)
 	anime = res;
+	console.log(data);
+	// For some reason, anime.id is always 'category'
+	anime.id = data.animeId;
+	console.log(anime)
 }
 
 onMount(initialLoad);

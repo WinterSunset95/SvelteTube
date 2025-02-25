@@ -1,45 +1,23 @@
 <script lang="ts">
-import type { IAnimeResult, IMovieResult, ISearch } from "@consumet/extensions";
+import type { MovieSearchResult } from "peek-a-boo.ts"
+import * as Card from "$lib/components/ui/card"
 
-export let animes: ISearch<IAnimeResult> | undefined;
-export let movies: ISearch<IMovieResult> | undefined;
-export let tv: ISearch<IMovieResult> | undefined;
-export let drama: ISearch<IMovieResult> | undefined;
-
-export let loadMoreFunction: () => Promise<void> | undefined;
-
-let data: ISearch<IAnimeResult> | ISearch<IMovieResult>;
-let route: string;
-
-if (animes) {
-	data = animes;
-	route = "/anime/";
-} else if (movies) {
-	data = movies;
-	route = "/movies/";
-} else if (tv) {
-	data = tv;
-	route = "/tv/";
-} else if (drama) {
-	data = drama;
-	route = "";
-}
+let { mediaList }: { 
+	mediaList: MovieSearchResult[],
+} = $props();
 
 </script>
 
 <div class="list">
-{#if data.results}
-	{#each data.results as video}
-		<a class="video" href="{route}{video.id}">
+{#if mediaList.length > 0}
+	{#each mediaList as video}
+		<a class="video" href="{video.Type}/{video.Id}">
 			<div class="thumbnail">
-				<img src={video.image} />
+				<img src={video.Poster} />
 			</div>
 			<div class="details">
 				<div class="padding">
-					<h4>{video.title}</h4>
-					{#if !drama}
-						<p>{video.releaseDate} | {video.subOrDub ? video.subOrDub : video.type}</p>
-					{/if}
+					<h4>{video.Title}</h4>
 				</div>
 			</div>
 		</a>
@@ -48,9 +26,6 @@ if (animes) {
 	<p>An error occured</p>
 {/if}
 </div>
-{#if data.hasNextPage && loadMoreFunction}
-	<button on:click={loadMoreFunction}>Load More</button>
-{/if}
 
 <style>
 

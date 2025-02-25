@@ -6,7 +6,7 @@ export const appProxy = "https://api.allorigins.win/get?url="
 //export const appProxy = "";
 export const movieTrending = `${appProxy}https://api.themoviedb.org/3/trending/movie/day?api_key=${TMDB_API_KEY}`
 export const moviePopular = `${appProxy}https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}`
-export const movieSearch = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=`
+export const movieSearch = `${appProxy}https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}%26query=`
 export const movieInfo = (id: string): string => `${appProxy}https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}`;
 export const tvTrending = `${appProxy}https://api.themoviedb.org/3/trending/tv/day?api_key=${TMDB_API_KEY}`
 export const tvPopular = `${appProxy}https://api.themoviedb.org/3/tv/popular?api_key=${TMDB_API_KEY}`
