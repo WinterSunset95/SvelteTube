@@ -1,11 +1,12 @@
 import { Gogo, TMDB, type MovieSearchResult, type PeekABoo } from "peek-a-boo.ts"
 import { TMDB_API_KEY, PROXY } from "$env/static/private"
 
-const anime = new Gogo();
+const anime = new Gogo;
 const movie = new TMDB(TMDB_API_KEY, PROXY);
 
 export const load = async ({ params }) => {
 	let animeList: PeekABoo<MovieSearchResult[]>, movieList: PeekABoo<MovieSearchResult[]>, tvList: PeekABoo<MovieSearchResult[]>;
+	console.log(`Environment variables: ${TMDB_API_KEY}, ${PROXY}`)
 	try {
 		animeList = await anime.getTrending()
 	} catch (e) {

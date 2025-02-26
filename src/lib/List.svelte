@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { MovieSearchResult } from "peek-a-boo.ts"
 import * as Carousel from "./components/ui/carousel";
-    import Card from "./Card.svelte";
+import Card from "./Card.svelte";
+import Autoplay from "embla-carousel-autoplay"
 
 let { mediaList }: { 
 	mediaList: MovieSearchResult[],
@@ -11,14 +12,21 @@ let { mediaList }: {
 
 <Carousel.Root
 	opts={{
-		align: "center"
+		align: "center",
+		loop: true
 	}}
-	class="w-full"
+	plugins={[
+		Autoplay({
+			delay: 2000,
+			stopOnInteraction: false,
+			stopOnMouseEnter: true
+		})
+	]}
 >
 	<Carousel.Content
 	>
 		{#each mediaList as media}
-			<Carousel.Item class="md:basis-1/4 lg:basis-1/6">
+			<Carousel.Item class="basis-1/2 md:basis-1/6">
 				<Card media={media} />
 			</Carousel.Item>
 		{/each}

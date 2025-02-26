@@ -19,12 +19,12 @@ console.log(data)
 	<meta name="description" content="Download anime, stream and chat live as you watch">
 </svelte:head>
 
-<main class="p-4">
-	<h1>Trending Shows</h1>
+<main class="p-4 flex flex-col gap-2">
+	<h1 class="text-lg md:text-xl">Trending Shows</h1>
 	<List mediaList={data.tv.boo} />
-	<h1>Trending Movies</h1>
+	<h1 class="text-lg md:text-xl">Trending Movies</h1>
 	<List mediaList={data.movies.boo} />
-	<h1>Trending Anime</h1>
+	<h1 class="text-lg md:text-xl">Trending Anime</h1>
 	<List mediaList={data.anime.boo} />
 </main>
 

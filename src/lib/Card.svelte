@@ -6,14 +6,14 @@ let { media }: { media: MovieSearchResult } = $props();
 </script>
 
 <a href="/{media.Type}/{media.Id}">
-	<Card.Root class="border-0">
-		<Card.Content class="aspect-[3/4] ">
-			<div class="rounded-lg overflow-hidden flex justify-center items-center">
+	<Card.Root class="border-0 relative aspect-[3/4] overflow-hidden rounded-lg group">
+		<Card.Content class="p-0 absolute top-0 left-0 w-full h-full">
+			<div class="flex justify-center items-center w-full h-full">
 				<img src={media.Poster} class="object-cover w-full" alt="">
 			</div>
 		</Card.Content>
-		<Card.Footer>
-			<Card.Title>{media.Title}</Card.Title>
+		<Card.Footer class="p-2 absolute bottom-0 left-0 w-full bg-gradient-to-t from-[var(--primary)] to-[rgba(0,0,0,0)] h-2/3 flex flex-col justify-end items-start transition-all group-hover:h-full group-hover:justify-center group-hover:items-center">
+			<Card.Title class="text-lg md:text-xl p-0">{media.Title}</Card.Title>
 		</Card.Footer>
 	</Card.Root>
 </a>
