@@ -24,7 +24,7 @@
 
 "@consumet/extensions@^1.8.1":
   version "1.8.1"
-  resolved "https://registry.npmjs.org/@consumet/extensions/-/extensions-1.8.1.tgz"
+  resolved "https://registry.yarnpkg.com/@consumet/extensions/-/extensions-1.8.1.tgz#a942e910af7f26fc1d44726cdba9b31b7a47f906"
   integrity sha512-Khs65PGB2hIR+SaM3jA074gYMq5n6qItzBECp69AiKFzIMDzvRxlviupetnjgU0xgLkfbfb9OttQ/NTpowD/JQ==
   dependencies:
     ascii-url-encoder "^1.2.0"

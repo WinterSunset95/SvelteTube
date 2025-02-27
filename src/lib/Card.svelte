@@ -12,7 +12,7 @@ let { media }: { media: MovieSearchResult } = $props();
 				<img src={media.Poster} class="object-cover w-full" alt="">
 			</div>
 		</Card.Content>
-		<Card.Footer class="p-2 absolute bottom-0 left-0 w-full bg-gradient-to-t from-[var(--primary)] to-[rgba(0,0,0,0)] h-2/3 flex flex-col justify-end items-start transition-all group-hover:h-full group-hover:justify-center group-hover:items-center">
+		<Card.Footer class="p-2 absolute bottom-0 left-0 w-full bg-gradient-to-t from-background to-[rgba(0,0,0,0)] h-2/3 flex flex-col justify-end items-start transition-all group-hover:h-full group-hover:justify-center group-hover:items-center">
 			<Card.Title class="text-lg md:text-xl p-0">{media.Title}</Card.Title>
 		</Card.Footer>
 	</Card.Root>
