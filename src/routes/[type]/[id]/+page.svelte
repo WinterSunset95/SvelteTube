@@ -18,13 +18,16 @@
 	let animeEpisodes = $state<IAnimeEpisode[]>([]);
 
 	// Exclusive to tv type
-	let season = $state<number | undefined>(undefined);
-	let episode = $state<number | undefined>(undefined);
+	let tvSeason = $state<TvSeason | undefined>(undefined)
 	let tvSeasons = $state<TvSeason[]>([]);
-	let tvEpisode = $state<number | undefined>(undefined);
+	let tvEpisode = $state<number | string>("Episode");
+	let tvEpisodes = $derived.by<number[]>(() => {
+		if (!tvSeason) return [];
+		return Array.from({ length: tvSeason.EpisodeCount }, (_, i) => i+1)
+	})
 
 	// Shared by Movie, Anime and TV type
-	let server = $state<IEpisodeServer | undefined>(undefined);
+	let server = $state<IEpisodeServer | string>("Server");
 	let servers = $state<IEpisodeServer[]>([]);
 
 	if (typeof media != "string") {
@@ -48,12 +51,18 @@
 
 	const getEmbedLinks = async () => {
 		if (typeof media == "string") return
-		const url = `/api/${media.Type}/${media.Type == "anime" ? "gogo" : "tmdb"}/embeds?id=${media.Id}&season=${season}&episode=${episode}`
+		const url = `/api/${media.Type}/${media.Type == "anime" ? "gogo" : "tmdb"}/embeds?id=${media.Id}&season=${tvSeason?.SeasonNumber}&episode=${tvEpisode}`
 		console.log(url)
 		const res = await fetch(url)
 		const data = await res.json() as PeekABoo<IEpisodeServer[]>;
 		servers = data.boo;
 	}
+
+	$effect(() => {
+		console.log(tvSeason, tvEpisode)
+		if (!tvSeason || typeof tvEpisode == "string") return
+		getEmbedLinks()
+	})
 
 </script>
 
@@ -70,28 +79,67 @@
 {:else}
 
 <div class="flex flex-col gap-2 p-2">
-	<section class="flex flex-col lg:flex-row gap-2 justify-center items-center">
-		<div class="w-full relative">
+	<section class="flex flex-col lg:flex-row justify-center items-center gap-2">
+		<div class="w-full relative flex flex-col items-center justify-center">
 			<div class="aspect-video overflow-hidden rounded-lg w-full">
-				{#if server}
-					<iframe src="{server.url}" frameborder="0" title="{server.name}" class="w-full h-full"></iframe>
+				{#if typeof server != "string"}
+					<iframe src={server.url} frameborder="0" title="{server.name}" class="w-full h-full"></iframe>
 				{:else}
 					<img class="object-cover w-full" src={media.Poster} alt="">
 				{/if}
 			</div>
-			{#if servers.length > 0}
-				<select name="Server" id="">
-					{#each servers as server}
-						<option value="{server}">{server.name}</option>
-					{/each}
-				</select>
-				{#if tmdbTvInfo}
-				<select name="Season" id="">
-				</select>
-				{/if}
-			{:else}
-				<button class="absolute top-1/2 left-1/2 translate-x-1/2 translate-y-1/2 p-2 bg-background text-foreground" on:click={playMode}>Play</button>
+			{#if servers.length == 0}
+				<button class="absolute top-1/2 left-1/2 translate-x-1/2 translate-y-1/2 p-2 bg-background text-foreground" onclick={playMode}>Play</button>
 			{/if}
+			<div class="flex gap-2">
+				{#if tmdbTvInfo && tvSeasons.length > 0}
+					<select
+						name="Server"
+						id=""
+						bind:value={server}
+						placeholder="Server"
+						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
+					>
+						{#each servers as server}
+							<option value={server}>{server.name}</option>
+						{/each}
+					</select>
+					<select
+						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
+						name="Season"
+						id=""
+						bind:value={tvSeason} disabled={tvSeasons.length > 0 ? false : true}
+						placeholder="Season"
+					>
+						{#each tvSeasons as season}
+							<option value={season}>{season.Name ?? season.SeasonNumber}</option>
+						{/each}
+					</select>
+					<select
+						name="Episode"
+						id=""
+						bind:value={tvEpisode}
+						placeholder="Episode"
+						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
+					>
+						{#each tvEpisodes as episode}
+							<option value={episode}>{episode}</option>
+						{/each}
+					</select>
+				{:else if tmdbMovieInfo && servers.length > 0}
+					<select
+						name="Server"
+						id=""
+						bind:value={server}
+						placeholder="Server"
+						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
+					>
+						{#each servers as server}
+							<option value={server}>{server.name}</option>
+						{/each}
+					</select>
+				{/if}
+			</div>
 		</div>
 		<div class="w-full lg:w-1/2 flex flex-col gap-2 p-2">
 			<h1 class="text-4xl font-bold">{media.Title}</h1>
