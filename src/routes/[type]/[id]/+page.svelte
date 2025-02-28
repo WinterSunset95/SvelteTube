@@ -10,9 +10,9 @@
 	const media = data.peekaboo.boo
 	const similar = data.similar
 
-	let tmdbTvInfo: TmdbTvInfo | undefined
-	let tmdbMovieInfo: TmdbMovieInfo | undefined
-	let animeInfo: ConsumetAnimeInfo | undefined
+	let tmdbTvInfo = $state<TmdbTvInfo | undefined>()
+	let tmdbMovieInfo = $state<TmdbMovieInfo | undefined>()
+	let animeInfo = $state<ConsumetAnimeInfo | undefined>()
 
 	// Exclusive to anime type
 	let animeEpisode = $state<IAnimeEpisode | undefined>(undefined);
