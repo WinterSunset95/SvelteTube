@@ -3221,10 +3221,10 @@ path-type@^4.0.0:
   resolved "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-peek-a-boo.ts@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/peek-a-boo.ts/-/peek-a-boo.ts-1.0.1.tgz#86da8ed88e0c1a9f130df2c231596daf946173cd"
-  integrity sha512-dH1ACEIlXaZ1PQyHFF1UzNFWC5kzsjDy30LqFUXE2E5OQWauhhSfell6SCJ0Iqf7uJNKhb7SbJ4EgqouDoMk3g==
+peek-a-boo.ts@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/peek-a-boo.ts/-/peek-a-boo.ts-1.0.2.tgz#eb2d863bd16f64cc5afed269839bb7297783b920"
+  integrity sha512-MxjXak1cPivAb+kSH1B7ZySGZdFnpBN8xRi/9Ne7qadFx7zL0SO4qm40F2MQF+B9rqhzMGgFcc5MYsxAitgZXg==
   dependencies:
     "@consumet/extensions" "^1.8.1"
     cheerio "^1.0.0"
