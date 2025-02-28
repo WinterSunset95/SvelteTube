@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as Select from "$lib/components/ui/select"
 	import List from "@/List.svelte";
 	import { type IEpisodeServer, type IAnimeEpisode } from "@consumet/extensions"
 	import { type ConsumetAnimeInfo, type MediaInfo, type PeekABoo, type TmdbTvInfo, type TmdbMovieInfo, type MovieSearchResult, type TvSeason } from "peek-a-boo.ts";
@@ -18,16 +19,16 @@
 	let animeEpisodes = $state<IAnimeEpisode[]>([]);
 
 	// Exclusive to tv type
-	let tvSeason = $state<TvSeason | undefined>(undefined)
 	let tvSeasons = $state<TvSeason[]>([]);
-	let tvEpisode = $state<number | string>("Episode");
+	let tvSeason = $state<TvSeason | undefined>()
+	let tvEpisode = $state<number | undefined>();
 	let tvEpisodes = $derived.by<number[]>(() => {
 		if (!tvSeason) return [];
 		return Array.from({ length: tvSeason.EpisodeCount }, (_, i) => i+1)
 	})
 
 	// Shared by Movie, Anime and TV type
-	let server = $state<IEpisodeServer | string>("Server");
+	let server = $state<IEpisodeServer | undefined>();
 	let servers = $state<IEpisodeServer[]>([]);
 
 	if (typeof media != "string") {
@@ -60,7 +61,7 @@
 
 	$effect(() => {
 		console.log(tvSeason, tvEpisode)
-		if (!tvSeason || typeof tvEpisode == "string") return
+		if (!tvSeason || !tvEpisode) return
 		getEmbedLinks()
 	})
 
@@ -80,64 +81,66 @@
 
 <div class="flex flex-col gap-2 p-2">
 	<section class="flex flex-col lg:flex-row justify-center items-center gap-2">
-		<div class="w-full relative flex flex-col items-center justify-center">
+		<div class="w-full relative flex flex-col items-center justify-center gap-2">
 			<div class="aspect-video overflow-hidden rounded-lg w-full">
-				{#if typeof server != "string"}
+				{#if server}
 					<iframe src={server.url} frameborder="0" title="{server.name}" class="w-full h-full"></iframe>
 				{:else}
 					<img class="object-cover w-full" src={media.Poster} alt="">
 				{/if}
 			</div>
-			{#if servers.length == 0}
-				<button class="absolute top-1/2 left-1/2 translate-x-1/2 translate-y-1/2 p-2 bg-background text-foreground" onclick={playMode}>Play</button>
+			{#if servers.length == 0 && tvSeasons.length == 0}
+				<button
+					class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-2 bg-background text-foreground rounded-2xl w-28 h-28 hover:scale-110 transition-all"
+					onclick={playMode}
+					aria-label="play"
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24"><path fill="currentColor" d="M18.54 9L8.88 3.46a3.42 3.42 0 0 0-5.13 3v11.12A3.42 3.42 0 0 0 7.17 21a3.43 3.43 0 0 0 1.71-.46L18.54 15a3.42 3.42 0 0 0 0-5.92Zm-1 4.19l-9.66 5.62a1.44 1.44 0 0 1-1.42 0a1.42 1.42 0 0 1-.71-1.23V6.42a1.42 1.42 0 0 1 .71-1.23A1.51 1.51 0 0 1 7.17 5a1.54 1.54 0 0 1 .71.19l9.66 5.58a1.42 1.42 0 0 1 0 2.46Z"/></svg>
+				</button>
 			{/if}
-			<div class="flex gap-2">
+			<div class="flex gap-2 w-full">
 				{#if tmdbTvInfo && tvSeasons.length > 0}
-					<select
-						name="Server"
-						id=""
-						bind:value={server}
-						placeholder="Server"
-						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
-					>
-						{#each servers as server}
-							<option value={server}>{server.name}</option>
-						{/each}
-					</select>
-					<select
-						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
-						name="Season"
-						id=""
-						bind:value={tvSeason} disabled={tvSeasons.length > 0 ? false : true}
-						placeholder="Season"
-					>
-						{#each tvSeasons as season}
-							<option value={season}>{season.Name ?? season.SeasonNumber}</option>
-						{/each}
-					</select>
-					<select
-						name="Episode"
-						id=""
-						bind:value={tvEpisode}
-						placeholder="Episode"
-						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
-					>
-						{#each tvEpisodes as episode}
-							<option value={episode}>{episode}</option>
-						{/each}
-					</select>
+					<Select.Root type="single" disabled={servers.length > 0 ? false : true}>
+						<Select.Trigger>
+							{server ? server.name : "Select Server"}
+						</Select.Trigger>
+						<Select.Content>
+							{#each servers as sv}
+								<Select.Item value={sv.name} onclick={() => server = sv}>{sv.name}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
+					<Select.Root type="single">
+						<Select.Trigger>
+							{!tvSeason ? "Select Season" : tvSeason.Name}
+						</Select.Trigger>
+						<Select.Content>
+							{#each tvSeasons as season}
+								<Select.Item value={season.SeasonNumber} onclick={() => tvSeason = season}>{season.Name}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
+					<Select.Root type="single" disabled={tvEpisodes.length > 0 ? false : true}>
+						<Select.Trigger>
+							{tvEpisode ? `Episode ${tvEpisode}` : "Select Episode"}
+						</Select.Trigger>
+						<Select.Content>
+							{#each tvEpisodes as episode}
+								<Select.Item value={episode.toString()} onclick={() => tvEpisode = episode}>Episode {episode}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
 				{:else if tmdbMovieInfo && servers.length > 0}
-					<select
-						name="Server"
-						id=""
-						bind:value={server}
-						placeholder="Server"
-						class="bg-secondary text-secondary-foreground p-2 text-lg rounded-lg"
-					>
-						{#each servers as server}
-							<option value={server}>{server.name}</option>
-						{/each}
-					</select>
+					<Select.Root type="single" disabled={servers.length > 0 ? false : true}>
+						<Select.Trigger>
+							{server ? server.name : "Select Server"}
+						</Select.Trigger>
+						<Select.Content>
+							{#each servers as sv}
+								<Select.Item value={sv.name} onclick={() => server = sv}>{sv.name}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
 				{/if}
 			</div>
 		</div>
