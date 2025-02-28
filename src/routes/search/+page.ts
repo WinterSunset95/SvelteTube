@@ -1,7 +1,7 @@
 export function load({ url }) {
-	let query = url.searchParams.get('query')
+  let query = url.searchParams.get("query");
 
-	return {
-		query,
-	}
+  return {
+    query,
+  };
 }
