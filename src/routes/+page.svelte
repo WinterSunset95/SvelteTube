@@ -1,7 +1,5 @@
 <script lang="ts">
 
-import AnimeList from '$lib/AnimeList.svelte';
-import HomePage from '$lib/HomePage.svelte';
 import List from '@/List.svelte';
 
 import type { MovieSearchResult, PeekABoo } from "peek-a-boo.ts"

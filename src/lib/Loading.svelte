@@ -1,6 +1,3 @@
-<script type="ts">
-</script>
-
 <style>
 .loading {
 	padding: 1rem;
