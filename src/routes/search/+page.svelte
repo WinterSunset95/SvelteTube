@@ -37,7 +37,7 @@ onMount(() => {
 </script>
 
 <svelte:head>
-	<title>{data.query}</title>
+	<title>Searching: {data.query}</title>
 	<meta name="description" content="Query: {data.query}">
 </svelte:head>
 

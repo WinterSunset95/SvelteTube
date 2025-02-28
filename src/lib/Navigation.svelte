@@ -1,37 +1,52 @@
 <script lang="ts">
+    import { AlignJustify, SearchIcon } from "lucide-svelte";
+    import Logo from "./Logo.svelte";
+    import { Button } from "./components/ui/button";
+
 let theme = 'light';
 
 let query: String;
+let menu = false;
 
 function toggleTheme() {
 	theme = theme === 'light' ? 'dark' : 'light';
 	document.body.classList.toggle("light");
 	document.body.classList.toggle("dark");
 }
+
 </script>
 
-<nav class="flex items-center justify-between p-2 gap-2 bg-secondary flex-wrap">
-	<h1 class="text-2xl">
-		<a href="/">SvelteTube</a>
-	</h1>
-	<ul class="flex items-center gap-2">
+<nav class={`flex items-center justify-between p-2 px-6 ${menu ? "gap-2" : ""} lg:gap-2 bg-secondary flex-wrap transition-all`}>
+	<div class="w-full lg:w-auto flex items-center justify-between">
+		<a href="/" class="flex items-center gap-2">
+			<div class="w-12">
+				<Logo />
+			</div>
+			<h1 class="text-xl font-bold">SvelteTube</h1>
+		</a>
+		<Button class="lg:hidden" onclick={() => menu = !menu} aria-label="menu">
+			<AlignJustify />
+			<span>Menu</span>
+		</Button>
+	</div>
+	<ul class={`flex justify-between w-full text-sm md:text-lg lg:w-auto items-center gap-2 lg:gap-6 overflow-hidden ${menu ? "h-auto" : "h-0"} lg:h-auto transition-all`}>
 		<li>
-			<a href="/">Movies</a>
+			<a href="/home">Home</a>
 		</li>
 		<li>
-			<a href="/">TV</a>
+			<a href="/" aria-disabled="true">Movies</a>
 		</li>
 		<li>
-			<a href="/">Asian</a>
+			<a href="/" aria-disabled="true">TV Shows</a>
 		</li>
 		<li>
-			<a href="/">Rooms</a>
+			<a href="/" aria-disabled="true">Anime</a>
 		</li>
 		<li>
-			<a href="/">About</a>
+			<a href="/" aria-disabled="true">Rooms</a>
 		</li>
 		<li>
-			<button class="icon" on:click={toggleTheme}>
+			<button class="icon" onclick={toggleTheme}>
 				{#if theme === 'light'}
 					<svg viewBox="0 0 1472 1536" xmlns="http://www.w3.org/2000/svg">
 					<path fill="#000000" d="M1464 1090q-94 203-283 323.5T768 1536q-157-1-299-62t-244.5-163.5T61 1066T0 768q0-205 97.5-378t267-276.5T738 2q43-2 62 38q17 42-16 72q-176 164-176 400q0 111 43 211.5t115 173t172.5 116T1151 1056q119 0 228-51q41-18 72 13t13 72"/>
@@ -45,12 +60,11 @@ function toggleTheme() {
 			</button>
 		</li>
 	</ul>
-	<form action="/search" class="flex gap-2 p-2 bg-background rounded-lg w-full md:w-auto">
+	<form
+		action="/search"
+		class={`flex gap-2 bg-background rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all`}
+	>
 		<input class="bg-transparent w-full" bind:value={query} type="text" name="query" placeholder="Search" />
-		<div class="icon">
-			<svg width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-			<path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34M208 336c-70.7 0-128-57.2-128-128c0-70.7 57.2-128 128-128c70.7 0 128 57.2 128 128c0 70.7-57.2 128-128 128"/>
-			</svg>
-		</div>
+		<SearchIcon />
 	</form>
 </nav>

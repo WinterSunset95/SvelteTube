@@ -26,7 +26,7 @@ let { mediaList }: {
 	<Carousel.Content
 	>
 		{#each mediaList as media}
-			<Carousel.Item class="basis-1/3 md:basis-1/5">
+			<Carousel.Item class="basis-1/2 md:basis-1/4 lg:basis-1/6">
 				<Card media={media} />
 			</Carousel.Item>
 		{/each}

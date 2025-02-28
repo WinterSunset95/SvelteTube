@@ -79,7 +79,7 @@
 	<h1>Failed to get data: {data.peekaboo.peek}</h1>
 {:else}
 
-<div class="flex flex-col gap-2 p-2">
+<div class="flex flex-col gap-2 p-2 md:p-4">
 	<section class="flex flex-col lg:flex-row justify-center items-center gap-2">
 		<div class="w-full relative flex flex-col items-center justify-center gap-2">
 			<div class="aspect-video overflow-hidden rounded-lg w-full">
@@ -145,7 +145,7 @@
 			</div>
 		</div>
 		<div class="w-full lg:w-1/2 flex flex-col gap-2 p-2">
-			<h1 class="text-4xl font-bold">{media.Title}</h1>
+			<h1 class="text-2xl md:text-4xl font-bold">{media.Title}</h1>
 			<div class="flex gap-2">
 
 				{#if animeInfo && animeInfo.genres}
@@ -167,7 +167,7 @@
 				{/if}
 
 			</div>
-			<p class="text-2xl">{media.Overview}</p>
+			<p class="text-xl md:text-2xl">{media.Overview}</p>
 		</div>
 	</section>
 	<section class="flex flex-col gap-2 p-2">
