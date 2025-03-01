@@ -17,7 +17,7 @@ let { mediaList }: {
 	}}
 	plugins={[
 		Autoplay({
-			delay: 2000,
+			delay: 5000,
 			stopOnInteraction: false,
 			stopOnMouseEnter: true
 		})

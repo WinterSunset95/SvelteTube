@@ -3,8 +3,9 @@
 	import { AlertCircle, CheckSquare, CircleArrowRight, CircleCheckIcon, Contact, DotSquareIcon, Github, GithubIcon, InstagramIcon, KeyboardIcon, MailIcon, Repeat1, Repeat2, SearchIcon, SquareXIcon } from "lucide-svelte";
 
     import Logo from "@/Logo.svelte";
+    import Navigation from "@/Navigation.svelte";
+    import Footer from "@/Footer.svelte";
 	let query;
-
 </script>
 
 <svelte:head>
@@ -12,6 +13,7 @@
 	<meta name="description" content="Download anime, stream and chat live as you watch">
 </svelte:head>
 
+<Navigation />
 <main class="flex flex-col justify-center items-center w-full p-6 pt-40 md:p-10 gap-4">
 	<a href="/home">
 		<div class="w-24">
@@ -212,6 +214,8 @@
 	</ul>
 
 </main>
+
+<Footer />
 
 <style>
 h2, h3, p, hr {

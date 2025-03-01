@@ -16,6 +16,12 @@ export const load = async ({ params }) => {
   console.log(`Environment variables: ${TMDB_API_KEY}, ${PROXY}`);
   try {
     animeList = await anime.getTrending();
+	if (animeList.peek == false) {
+		animeList = {
+			peek: false,
+			boo: []
+		}
+	}
   } catch (e) {
     console.log("Failed to get trending anime");
     console.log(e);
@@ -36,6 +42,7 @@ export const load = async ({ params }) => {
     tvList = { peek: false, boo: [] };
   }
 
+  console.log({animeList, movieList, tvList})
   return {
     anime: animeList,
     movies: movieList,

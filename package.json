@@ -59,6 +59,7 @@
     "embla-carousel-autoplay": "^8.5.2",
     "peek-a-boo.ts": "^1.0.10",
     "request": "^2.88.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "typedoc-plugin-markdown": "^4.4.2"
   }
 }

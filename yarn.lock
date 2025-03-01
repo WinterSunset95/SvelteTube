@@ -3988,6 +3988,11 @@ type-check@^0.4.0, type-check@~0.4.0:
   dependencies:
     prelude-ls "^1.2.1"
 
+typedoc-plugin-markdown@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-4.4.2.tgz#fc31779595aa9bf00e66709f3894e048345bf7ed"
+  integrity sha512-kJVkU2Wd+AXQpyL6DlYXXRrfNrHrEIUgiABWH8Z+2Lz5Sq6an4dQ/hfvP75bbokjNDUskOdFlEEm/0fSVyC7eg==
+
 typescript-eslint@^8.25.0:
   version "8.25.0"
   resolved "https://registry.yarnpkg.com/typescript-eslint/-/typescript-eslint-8.25.0.tgz#73047c157cd70ee93cf2f9243f1599d21cf60239"
