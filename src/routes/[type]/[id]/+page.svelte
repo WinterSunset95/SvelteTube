@@ -87,7 +87,7 @@
 		<div class="w-full relative flex flex-col items-center justify-center gap-2">
 			<div class="aspect-video overflow-hidden rounded-lg w-full">
 				{#if server}
-					<iframe src={server.url} frameborder="0" title="{server.name}" class="w-full h-full"></iframe>
+					<iframe src={server.url} frameborder="0" title="{server.name}" class="w-full h-full" allowfullscreen></iframe>
 				{:else}
 					<img class="object-cover w-full" src={data.peekaboo.boo.Poster} alt="">
 				{/if}

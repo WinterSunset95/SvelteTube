@@ -1,3 +1,6 @@
+<!-- 
+<img class="logo-img" src="/static/svelte-tube.png" alt="">
+-->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 142">
 	<!-- svg-source:excalidraw -->
 	<g transform="translate(65.05999999999995 45) rotate(0 50.15636363636361 26.00000000000003)">
