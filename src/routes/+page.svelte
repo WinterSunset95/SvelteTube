@@ -26,7 +26,9 @@
 		class={`flex gap-2 bg-secondary rounded-lg w-full max-w-[60rem] overflow-hidden p-2 lg:h-auto lg:p-2 transition-all`}
 	>
 		<input class="bg-transparent w-full" bind:value={query} type="text" name="query" placeholder="Start searching . . ." />
-		<SearchIcon />
+		<button type="submit">
+			<SearchIcon />
+		</button>
 	</form>
 
 	<Button href="/home" class="flex justify-center items-center" >
