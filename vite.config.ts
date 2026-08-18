@@ -7,6 +7,9 @@ export default defineConfig({
     sveltekit(),
     tailwindcss()
   ],
+  ssr: {
+    external: ['@consumet/extensions', 'got-scraping']
+  },
   optimizeDeps: {
     exclude: ['peek-a-boo.ts']
   }
