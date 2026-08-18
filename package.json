@@ -1,6 +1,9 @@
 {
   "name": "svelte-ts",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.5.0"
+  },
   "private": true,
   "scripts": {
     "dev": "vite dev --host",
