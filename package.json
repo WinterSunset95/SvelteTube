@@ -1,9 +1,6 @@
 {
   "name": "svelte-ts",
   "version": "0.0.1",
-  "engines": {
-    "node": "24.x"
-  },
   "private": true,
   "scripts": {
     "dev": "vite dev --host",
@@ -71,6 +68,5 @@
     "svelte-sonner": "^1.2.1",
     "tailwindcss-animate": "^1.0.7",
     "typedoc-plugin-markdown": "^4.4.2"
-  },
-  "packageManager": "pnpm@11.22.0"
+  }
 }
