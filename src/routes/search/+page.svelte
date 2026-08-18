@@ -1,14 +1,18 @@
 <script lang="ts">
-export let data: { query: string };
 
 import { onMount } from 'svelte';
 import Loading from '$lib/Loading.svelte';
 import type { MovieSearchResult, PeekABoo } from 'peek-a-boo.ts';
 import List from '@/List.svelte';
+	interface Props {
+		data: { query: string };
+	}
 
-let animeList: MovieSearchResult[];
-let movieList: MovieSearchResult[];
-let tvList: MovieSearchResult[];;
+	let { data }: Props = $props();
+
+let animeList: MovieSearchResult[] = $state();
+let movieList: MovieSearchResult[] = $state();
+let tvList: MovieSearchResult[] = $state();;
 
 async function animeLoad() {
 	const resData = await fetch(`/api/anime/gogo/search?query=${data.query}`);

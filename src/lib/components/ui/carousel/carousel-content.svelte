@@ -1,9 +1,8 @@
 <script lang="ts">
 	import emblaCarouselSvelte from "embla-carousel-svelte";
-	import type { WithElementRef } from "bits-ui";
-	import type { HTMLAttributes } from "svelte/elements";
+	import { cn, type WithElementRef } from "$lib/utils.js";
 	import { getEmblaContext } from "./context.js";
-	import { cn } from "$lib/utils.js";
+	import type { HTMLAttributes } from "svelte/elements";
 
 	let {
 		ref = $bindable(null),
@@ -15,8 +14,8 @@
 	const emblaCtx = getEmblaContext("<Carousel.Content/>");
 </script>
 
-<!-- svelte-ignore event_directive_deprecated -->
 <div
+	data-slot="carousel-content"
 	class="overflow-hidden"
 	use:emblaCarouselSvelte={{
 		options: {
@@ -27,13 +26,13 @@
 		},
 		plugins: emblaCtx.plugins,
 	}}
-	on:emblaInit={emblaCtx.onInit}
+	onemblaInit={emblaCtx.onInit}
 >
 	<div
 		bind:this={ref}
 		class={cn(
 			"flex",
-			emblaCtx.orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+			emblaCtx.orientation === "horizontal" ? "-ms-4" : "-mt-4 flex-col",
 			className
 		)}
 		data-embla-container=""

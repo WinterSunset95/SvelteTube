@@ -1,27 +1,29 @@
 <script lang="ts">
 	import { Select as SelectPrimitive } from "bits-ui";
-	import ChevronDown from "lucide-svelte/icons/chevron-down";
-	import { cn } from "$lib/utils.js";
+	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
+	import { cn, type WithoutChild } from "$lib/utils.js";
 
-	type $$Props = SelectPrimitive.TriggerProps;
-	type $$Events = SelectPrimitive.TriggerEvents;
-
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		size = "default",
+		...restProps
+	}: WithoutChild<SelectPrimitive.TriggerProps> & {
+		size?: "sm" | "default";
+	} = $props();
 </script>
 
 <SelectPrimitive.Trigger
+	bind:ref
+	data-slot="select-trigger"
+	data-size={size}
 	class={cn(
-		"border-input bg-background ring-offset-background focus-visible:ring-ring aria-[invalid]:border-destructive data-[placeholder]:[&>span]:text-muted-foreground flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+		"gap-1.5 rounded-3xl border border-transparent bg-input/50 px-3 py-2 text-sm transition-[color,box-shadow,background-color] focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg:not([class*='size-'])]:size-4 flex w-fit items-center justify-between whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
 		className
 	)}
-	{...$$restProps}
-	let:builder
-	on:click
-	on:keydown
+	{...restProps}
 >
-	<slot {builder} />
-	<div>
-		<ChevronDown class="h-4 w-4 opacity-50" />
-	</div>
+	{@render children?.()}
+	<ChevronDownIcon class="size-4 text-muted-foreground pointer-events-none" />
 </SelectPrimitive.Trigger>

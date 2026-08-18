@@ -12,9 +12,9 @@
 
 <div
 	bind:this={ref}
-	data-slot="alert-dialog-footer"
+	data-slot="avatar-group"
 	class={cn(
-		"cn-alert-dialog-footer flex flex-col-reverse gap-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2 sm:flex-row sm:justify-end",
+		"cn-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background",
 		className
 	)}
 	{...restProps}
