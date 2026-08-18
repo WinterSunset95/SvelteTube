@@ -1,32 +1,15 @@
 import {
-  AnimePahe,
   TMDB,
   type MovieSearchResult,
   type PeekABoo,
 } from "peek-a-boo.ts";
 import { TMDB_API_KEY, PROXY } from "$env/static/private";
 
-const anime = new AnimePahe();
 const movie = new TMDB(TMDB_API_KEY, PROXY);
 
 export const load = async ({ params }) => {
-  let animeList: PeekABoo<MovieSearchResult[]>,
-    movieList: PeekABoo<MovieSearchResult[]>,
-    tvList: PeekABoo<MovieSearchResult[]>;
+  let movieList: PeekABoo<MovieSearchResult[]>, tvList: PeekABoo<MovieSearchResult[]>;
   console.log(`Environment variables: ${TMDB_API_KEY}, ${PROXY}`);
-  try {
-    animeList = await anime.getTrending();
-	if (animeList.peek == false) {
-		animeList = {
-			peek: false,
-			boo: []
-		}
-	}
-  } catch (e) {
-    console.log("Failed to get trending anime");
-    console.log(e);
-    animeList = { peek: false, boo: [] };
-  }
   try {
     movieList = await movie.getTrendingMovies();
   } catch (e) {
@@ -42,9 +25,8 @@ export const load = async ({ params }) => {
     tvList = { peek: false, boo: [] };
   }
 
-  console.log({animeList, movieList, tvList})
+  console.log({movieList, tvList})
   return {
-    anime: animeList,
     movies: movieList,
     tv: tvList,
   };

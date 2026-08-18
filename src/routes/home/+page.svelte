@@ -1,13 +1,11 @@
 <script lang="ts">
-    import Footer from '@/Footer.svelte';
-
+import Footer from '@/Footer.svelte';
 
 import List from '@/List.svelte';
-    import Navigation from '@/Navigation.svelte';
+import Navigation from '@/Navigation.svelte';
 
 import type { MovieSearchResult, PeekABoo } from "peek-a-boo.ts"
 let { data }: { data: {
-	anime: PeekABoo<MovieSearchResult[]>,
 	movies: PeekABoo<MovieSearchResult[]>,
 	tv: PeekABoo<MovieSearchResult[]>
 } } = $props();
@@ -26,8 +24,6 @@ console.log(data)
 	<List mediaList={data.tv.boo} />
 	<h1 class="text-lg md:text-xl">Trending Movies</h1>
 	<List mediaList={data.movies.boo} />
-	<h1 class="text-lg md:text-xl">Trending Anime</h1>
-	<List mediaList={data.anime.boo} />
 </main>
 <Footer />
 

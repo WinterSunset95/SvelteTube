@@ -56,7 +56,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@consumet/extensions": "^1.8.1",
     "@lucide/svelte": "^1.31.0",
     "@sveltejs/adapter-node": "^3.0.1",
     "@tailwindcss/vite": "^4.3.3",

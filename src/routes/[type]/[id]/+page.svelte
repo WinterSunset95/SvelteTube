@@ -1,11 +1,10 @@
 <script lang="ts">
 	import * as Select from "$lib/components/ui/select"
-    import Footer from "@/Footer.svelte";
+  import Footer from "@/Footer.svelte";
 	import List from "@/List.svelte";
-    import Navigation from "@/Navigation.svelte";
-	import { type IEpisodeServer, type IAnimeEpisode } from "@consumet/extensions"
-    import { PlayIcon } from "@lucide/svelte";
-	import { type ConsumetAnimeInfo, type MediaInfo, type PeekABoo, type TmdbTvInfo, type TmdbMovieInfo, type MovieSearchResult, type TvSeason } from "peek-a-boo.ts";
+  import Navigation from "@/Navigation.svelte";
+  import { PlayIcon } from "@lucide/svelte";
+	import { type ConsumetAnimeInfo, type MediaInfo, type PeekABoo, type TmdbTvInfo, type TmdbMovieInfo, type MovieSearchResult, type TvSeason, type IEpisodeServer, type IAnimeEpisode } from "peek-a-boo.ts";
 
 	let { data }: { data: {
 		peekaboo: PeekABoo<string | MediaInfo>,
