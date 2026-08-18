@@ -9,7 +9,6 @@ const movie = new TMDB(TMDB_API_KEY, PROXY);
 
 export const load = async ({ params }) => {
   let movieList: PeekABoo<MovieSearchResult[]>, tvList: PeekABoo<MovieSearchResult[]>;
-  console.log(`Environment variables: ${TMDB_API_KEY}, ${PROXY}`);
   try {
     movieList = await movie.getTrendingMovies();
   } catch (e) {
@@ -26,7 +25,6 @@ export const load = async ({ params }) => {
     tvList = { peek: false, boo: [] };
   }
 
-  console.log({movieList, tvList})
   return {
     movies: movieList,
     tv: tvList,

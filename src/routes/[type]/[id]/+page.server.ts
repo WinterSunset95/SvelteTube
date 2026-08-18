@@ -14,7 +14,6 @@ export const load = async ({
 }> => {
   const type = params.type as MediaTypes;
   const id = params.id as string;
-  console.log(type, id);
 
   try {
     if (type == "anime") {
