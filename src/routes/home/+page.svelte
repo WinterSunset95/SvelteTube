@@ -9,7 +9,7 @@ let { data }: { data: {
 	movies: PeekABoo<MovieSearchResult[]>,
 	tv: PeekABoo<MovieSearchResult[]>
 } } = $props();
-console.log(data)
+console.log(data.tv)
 
 </script>
 

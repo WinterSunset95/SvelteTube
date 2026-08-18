@@ -19,6 +19,7 @@ export const load = async ({ params }) => {
   }
   try {
     tvList = await movie.getTrendingTv();
+    console.log(tvList)
   } catch (e) {
     console.log("Failed to get trending TV");
     console.log(e);
