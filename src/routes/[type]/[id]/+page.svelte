@@ -5,11 +5,9 @@
   import Navigation from "@/Navigation.svelte";
   import { PlayIcon } from "@lucide/svelte";
 	import { type ConsumetAnimeInfo, type MediaInfo, type PeekABoo, type TmdbTvInfo, type TmdbMovieInfo, type MovieSearchResult, type TvSeason, type IEpisodeServer, type IAnimeEpisode } from "peek-a-boo.ts";
+  import type { PageData } from "./$types";
 
-	let { data }: { data: {
-		peekaboo: PeekABoo<string | MediaInfo>,
-		similar: MovieSearchResult[],
-	} } = $props();
+	let { data }: { data: PageData } = $props();
 
 
 	$effect(() => {
