@@ -1,6 +1,6 @@
 <script>
     import { Button } from "@/components/ui/button";
-	import { AlertCircle, CheckSquare, CircleArrowRight, CircleCheckIcon, Contact, DotSquareIcon, Github, GithubIcon, InstagramIcon, KeyboardIcon, MailIcon, Repeat1, Repeat2, SearchIcon, SquareXIcon } from "lucide-svelte";
+    import { AlertCircle, CheckSquare, CircleArrowRight, CircleCheckIcon, Contact, DotSquareIcon, FolderGit, KeyboardIcon, MailIcon, Repeat1, Repeat2, SearchIcon, SquareXIcon } from "@lucide/svelte";
 
     import Logo from "@/Logo.svelte";
     import Navigation from "@/Navigation.svelte";
@@ -48,13 +48,13 @@
 	<ul class="flex gap-1">
 		<li>
 			<Button href="https://github.com/WinterSunset95" target="_blank">
-				<GithubIcon />
+				<FolderGit />
 				<span class="hidden md:flex">WinterSunset95</span>
 			</Button>
 		</li>
 		<li>
 			<Button href="https://instagram.com/wallace.thiago">
-				<InstagramIcon />
+				<!-- <InstagramIcon /> -->
 				<span class="hidden md:flex">@wallace.thiago</span>
 			</Button>
 		</li>

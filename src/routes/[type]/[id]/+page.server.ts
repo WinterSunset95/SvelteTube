@@ -1,7 +1,5 @@
 import { animeProvider, tmdbProvider } from "@/server/providers.js";
 import {
-  Gogo,
-  TMDB,
   type MediaInfo,
   type MediaTypes,
   type MovieSearchResult,

@@ -1,12 +1,12 @@
 import {
-  Gogo,
+  AnimePahe,
   TMDB,
   type MovieSearchResult,
   type PeekABoo,
 } from "peek-a-boo.ts";
 import { TMDB_API_KEY, PROXY } from "$env/static/private";
 
-const anime = new Gogo();
+const anime = new AnimePahe();
 const movie = new TMDB(TMDB_API_KEY, PROXY);
 
 export const load = async ({ params }) => {

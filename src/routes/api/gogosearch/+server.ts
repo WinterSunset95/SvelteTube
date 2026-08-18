@@ -1,5 +1,5 @@
 import { ANIME } from "@consumet/extensions";
-const gogoanime = new ANIME.Gogoanime();
+const animepahe = new ANIME.AnimePahe();
 
 export async function GET({ fetch, url }) {
   let query = url.searchParams.get("search");
@@ -8,9 +8,9 @@ export async function GET({ fetch, url }) {
   let data;
 
   if (query == "") {
-    data = await gogoanime.search(" ");
+    data = await animepahe.search(" ");
   } else {
-    data = await gogoanime.search(query, page);
+    data = await animepahe.search(query, page);
   }
 
   return new Response(JSON.stringify(data));

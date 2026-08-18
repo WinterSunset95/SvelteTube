@@ -23,9 +23,7 @@
 
         shellHook = ''
           echo "SvelteTube Dev Environment Loaded";
-          echo "Node version: $(node --version)
-
-          corepack enable pnpm
+          echo "Node version: $(node --version)"
         '';
       };
     }

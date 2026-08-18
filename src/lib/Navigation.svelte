@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { AlignJustify, SearchIcon } from "lucide-svelte";
+    import { AlignJustify, SearchIcon } from "@lucide/svelte";
     import Logo from "./Logo.svelte";
     import { Button } from "./components/ui/button";
 	import { afterNavigate, beforeNavigate } from "$app/navigation";
