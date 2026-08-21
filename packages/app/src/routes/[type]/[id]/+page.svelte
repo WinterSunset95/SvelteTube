@@ -88,7 +88,7 @@
       alt="Backdrop"
     />
   </div>
-	<section class="flex flex-col lg:flex-row justify-center items-center gap-2 z-10">
+	<section class="flex flex-col lg:flex-row justify-center items-center gap-2 z-10 w-full h-full">
 		<div class="w-full relative flex flex-col items-center justify-center gap-2">
 			<div class="aspect-video overflow-hidden rounded-lg w-full">
 				{#if server}
@@ -189,12 +189,6 @@
 		</div>
 	</section>
 
-	<!-- <section class="flex flex-col gap-2 p-2"> -->
-	<!-- 	<h1 class="text-2xl font-bold">You might also like</h1> -->
-	<!-- 	<List mediaList={data.similar}/> -->
-	<!-- </section> -->
-  
 </div>
-<Footer />
 
 {/if}

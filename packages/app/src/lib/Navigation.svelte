@@ -102,7 +102,7 @@
 		</ul>
 		<form
 			action="/search"
-			class={`flex gap-2 bg-background rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all border ${stickyNav ? "border-primary" : ""}`}
+			class={`flex gap-2 bg-background border-0 rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all border ${stickyNav ? "border-primary" : ""}`}
 		>
 			<input class="bg-transparent w-full" bind:value={query} type="text" name="query" placeholder="Search" />
 			<button type="submit">
