@@ -8,7 +8,7 @@
   import { cubicOut } from "svelte/easing";
   import { onMount } from "svelte";
   import * as NavigationMenu from "$lib/components/ui/navigation-menu";
-    import { toggleMode } from "mode-watcher";
+  import { toggleMode } from "mode-watcher";
 
 	let progress = new Tween(1, {
 		delay: 1000,
@@ -89,7 +89,7 @@
 				<a href="/" aria-disabled="true">Rooms</a>
 			</li>
 			<li>
-				<Button onclick={toggleMode} variant="outline" size="icon" class={`${menu ? "" : "hidden"}`}>
+				<Button onclick={toggleMode} variant="outline" size="icon" class={`${menu ? "" : ""} relative`}>
           <SunIcon
             class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
           />

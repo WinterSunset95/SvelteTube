@@ -1,10 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tw-animate-css";
 @import "shadcn-svelte/tailwind.css";
 @import "@fontsource-variable/inter";
 @import "tailwindcss";
 
 /* Custom CSS */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @font-face {
 	font-family: "Excalifont";
 	src: url("/Excalifont-Regular.woff2") format("woff2");
@@ -15,21 +15,6 @@
 * {
 	font-family: "Montserrat", sans-serif;
 	transition: background-color 1s ease-in-out, color 150ms ease-in-out;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-	transition: all 150ms ease-in-out;
-}
-
-a:hover {
-	font-weight: bold;
-	text-decoration: underline;
-}
-
-li {
-	list-style: none;
 }
 
 .icon {
