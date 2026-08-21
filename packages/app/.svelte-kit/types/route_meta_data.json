@@ -7,6 +7,9 @@
 	"/api/tv/tmdb/embeds": [
 		"src/routes/api/tv/tmdb/embeds/+server.ts"
 	],
+	"/api/tv/tmdb/seasons": [
+		"src/routes/api/tv/tmdb/seasons/+server.ts"
+	],
 	"/home": [
 		"src/routes/home/+page.server.ts"
 	],

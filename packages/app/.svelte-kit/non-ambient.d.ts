@@ -29,7 +29,7 @@ declare module "$app/types" {
 	type MatcherParam<M> = M extends (param : string) => param is (infer U extends string) ? U : string;
 
 	export interface AppTypes {
-		RouteId(): "/" | "/about" | "/api" | "/api/movie" | "/api/movie/tmdb" | "/api/movie/tmdb/embeds" | "/api/tv" | "/api/tv/tmdb" | "/api/tv/tmdb/embeds" | "/home" | "/rooms" | "/search" | "/[type]" | "/[type]/[id]";
+		RouteId(): "/" | "/about" | "/api" | "/api/movie" | "/api/movie/tmdb" | "/api/movie/tmdb/embeds" | "/api/tv" | "/api/tv/tmdb" | "/api/tv/tmdb/embeds" | "/api/tv/tmdb/seasons" | "/home" | "/rooms" | "/search" | "/[type]" | "/[type]/[id]";
 		RouteParams(): {
 			"/[type]": { type: string };
 			"/[type]/[id]": { type: string; id: string }
@@ -44,13 +44,14 @@ declare module "$app/types" {
 			"/api/tv": Record<string, never>;
 			"/api/tv/tmdb": Record<string, never>;
 			"/api/tv/tmdb/embeds": Record<string, never>;
+			"/api/tv/tmdb/seasons": Record<string, never>;
 			"/home": Record<string, never>;
 			"/rooms": Record<string, never>;
 			"/search": Record<string, never>;
 			"/[type]": { type: string; id?: string | undefined };
 			"/[type]/[id]": { type: string; id: string }
 		};
-		Pathname(): "/" | "/about" | "/api/movie/tmdb/embeds" | "/api/tv/tmdb/embeds" | "/home" | "/rooms" | "/search" | `/${string}/${string}` & {};
+		Pathname(): "/" | "/about" | "/api/movie/tmdb/embeds" | "/api/tv/tmdb/embeds" | "/api/tv/tmdb/seasons" | "/home" | "/rooms" | "/search" | `/${string}/${string}` & {};
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): "/Excalifont-Regular.woff2" | "/docs/.nojekyll" | "/docs/assets/hierarchy.js" | "/docs/assets/highlight.css" | "/docs/assets/icons.js" | "/docs/assets/icons.svg" | "/docs/assets/main.js" | "/docs/assets/navigation.js" | "/docs/assets/search.js" | "/docs/assets/style.css" | "/docs/index.html" | "/docs/modules.html" | "/favicon.ico" | "/favicon.png" | "/manifest.json" | "/svelte-tube-bak.svg" | "/svelte-tube.png" | string & {};
 	}
