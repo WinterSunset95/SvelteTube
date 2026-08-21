@@ -49,7 +49,7 @@ let episodes = $derived.by(async () => {
       
     {:then data} 
       {#each data.episodes as episode}
-        <Card.Root>
+        <Card.Root onclick={() => console.log("not implemented")}>
           <Card.Header>{episode.episode_number}. {episode.name}</Card.Header>
           <Card.Content>{episode.overview}</Card.Content>
         </Card.Root>
