@@ -1,0 +1,1 @@
+import"../chunks/Bzak7iHL.js";import"../chunks/DZECM9XR.js";import{a as e,c as n,G as a}from"../chunks/4gSVB85y.js";var s=n(`<h1 class="svelte-1359xib">The "Rooms" functionality is not implemented yet</h1> <h1 class="svelte-1359xib">Honestly I don't even know how to start</h1>`,1);function p(t){var o=s();a(2),e(t,o)}export{p as component};

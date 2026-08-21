@@ -1,0 +1,20 @@
+{
+	"/": [],
+	"/about": [],
+	"/api/movie/tmdb/embeds": [
+		"src/routes/api/movie/tmdb/embeds/+server.ts"
+	],
+	"/api/tv/tmdb/embeds": [
+		"src/routes/api/tv/tmdb/embeds/+server.ts"
+	],
+	"/home": [
+		"src/routes/home/+page.server.ts"
+	],
+	"/rooms": [],
+	"/search": [
+		"src/routes/search/+page.server.ts"
+	],
+	"/[type]/[id]": [
+		"src/routes/[type]/[id]/+page.server.ts"
+	]
+}

@@ -1,0 +1,1 @@
+import{p as t,n as r}from"./oHAZkc1H.js";import{s as e}from"./DZ9u2lHs.js";const n={get error(){return t.error},get status(){return t.status}},a={get to(){return r.current?r.current.to:null}};e.updated.check;const g=n,c=a;export{c as n,g as p};

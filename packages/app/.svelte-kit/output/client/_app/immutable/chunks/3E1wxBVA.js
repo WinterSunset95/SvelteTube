@@ -1,0 +1,1 @@
+import"./Bzak7iHL.js";import"./DZECM9XR.js";import{a as t,c as e}from"./4gSVB85y.js";var s=e('<footer class="p-4 bg-secondary text-secondary-foreground">All rights reserved &copy; 2024 @ <a href="https://wintersunset95.github.io">WinterSunset95</a></footer>');function p(o){var r=s();t(o,r)}export{p as F};
