@@ -88,7 +88,36 @@
       alt="Backdrop"
     />
   </div>
-	<section class="flex flex-col lg:flex-row justify-center items-center gap-2 z-10 w-full h-full">
+	<section class="flex flex-col lg:flex-row items-center gap-2 z-10 w-full h-full p-2 backdrop-blur-sm">
+    <div class="mt-3">
+      <h1 class="text-9xl font-bold">{data.peekaboo.boo.Title}</h1>
+    </div>
+    <div class="flex flex-row items-center justify-between w-full mt-3">
+      <span class="font-bold text-lg">{data.peekaboo.boo.Duration}</span>
+      <span class="font-bold text-lg">{data.peekaboo.boo.Year}</span>
+      <span class="font-bold text-lg">{data.peekaboo.boo.Type}</span>
+    </div>
+    <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
+    <div class="w-full flex flex-row gap-4 items-center">
+      {#if animeInfo && animeInfo.genres}
+        {#each animeInfo.genres as genre }
+          <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
+        {/each}
+      {/if}
+
+      {#if tmdbTvInfo}
+        {#each tmdbTvInfo.genres as genre}
+          <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+        {/each}
+      {/if}
+
+      {#if tmdbMovieInfo}
+        {#each tmdbMovieInfo.genres as genre}
+          <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+        {/each}
+      {/if}
+    </div>
+
 		<div class="w-full relative flex flex-col items-center justify-center gap-2">
 			<div class="aspect-video overflow-hidden rounded-lg w-full">
 				{#if server}
