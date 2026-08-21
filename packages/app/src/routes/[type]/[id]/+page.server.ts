@@ -1,9 +1,11 @@
 import { animeProvider, tmdbProvider } from "@/server/providers.js";
-import {
-  type MediaInfo,
-  type MediaTypes,
-  type MovieSearchResult,
-  type PeekABoo,
+import type {
+  MediaInfo,
+  MediaTypes,
+  MovieSearchResult,
+  PeekABoo,
+  TmdbBackdrop,
+  TmdbBackdrops,
 } from "peek-a-boo.ts";
 
 export const load = async ({
@@ -11,6 +13,7 @@ export const load = async ({
 }): Promise<{
   peekaboo: PeekABoo<string | MediaInfo>;
   similar: MovieSearchResult[];
+  backdrops: TmdbBackdrop[];
 }> => {
   const type = params.type as MediaTypes;
   const id = params.id as string;
@@ -21,22 +24,37 @@ export const load = async ({
       return {
         peekaboo: res,
         similar: [],
+        backdrops: [],
       };
     }
     if (type == "movie") {
       const res = await tmdbProvider.getMovieInfo(id);
       const similar = await tmdbProvider.getSimilarMovies(id);
+      const backdropsRes = await tmdbProvider.getBackdrops("movie", id);
+      let backdrops: TmdbBackdrop[] = [];
+      if (typeof(backdropsRes) == "object") {
+        const backdrop = (backdropsRes.boo as TmdbBackdrops);
+        backdrops = backdrop.backdrops;
+      }
       return {
         peekaboo: res,
         similar: similar.boo,
+        backdrops: backdrops,
       };
     }
     if (type == "tv") {
       const res = await tmdbProvider.getTvInfo(id);
       const similar = await tmdbProvider.getSimilarTvShows(id);
+      const backdropsRes = await tmdbProvider.getBackdrops("tv", id);
+      let backdrops: TmdbBackdrop[] = [];
+      if (typeof(backdropsRes) == "object") {
+        const backdrop = (backdropsRes.boo as TmdbBackdrops);
+        backdrops = backdrop.backdrops;
+      }
       return {
         peekaboo: res,
         similar: similar.boo,
+        backdrops: backdrops
       };
     }
     return {
@@ -45,6 +63,7 @@ export const load = async ({
         boo: "Failed in the try block",
       },
       similar: [],
+      backdrops: []
     };
   } catch (e) {
     return {
@@ -53,6 +72,7 @@ export const load = async ({
         boo: "Failed in the try block",
       },
       similar: [],
+      backdrops: []
     };
   }
 };

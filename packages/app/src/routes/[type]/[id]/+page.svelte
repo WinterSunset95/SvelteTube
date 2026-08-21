@@ -79,14 +79,22 @@
 {:else}
 
 <Navigation />
-<div class="flex flex-col gap-2 p-2 md:p-4 h-dvh">
-	<section class="flex flex-col lg:flex-row justify-center items-center gap-2">
+<div class="flex flex-col gap-2 p-2 md:p-4 h-dvh relative">
+  <div class="absolute top-0 left-0 w-full h-full">
+    <img class="w-full h-full object-cover" src={
+      data.peekaboo.boo.TmdbMovieInfo ?
+        `https://image.tmdb.org/t/p/w500${data.peekaboo.boo.TmdbMovieInfo.backdrop_path}` :
+        `https://image.tmdb.org/t/p/w500${data.peekaboo.boo.TmdbTvInfo.backdrop_path}`} 
+      alt="Backdrop"
+    />
+  </div>
+	<section class="flex flex-col lg:flex-row justify-center items-center gap-2 z-10">
 		<div class="w-full relative flex flex-col items-center justify-center gap-2">
 			<div class="aspect-video overflow-hidden rounded-lg w-full">
 				{#if server}
 					<iframe src={server.url} frameborder="0" title="{server.name}" class="w-full h-full" allowfullscreen></iframe>
 				{:else}
-					<img class="object-cover w-full" src={data.peekaboo.boo.Poster} alt="">
+					<!-- <img class="object-cover w-full" src={data.peekaboo.boo.Poster} alt=""> -->
 				{/if}
 			</div>
 			{#if servers.length == 0 && tvSeasons.length == 0}
@@ -180,10 +188,12 @@
 			<p class="text-xl md:text-2xl">{data.peekaboo.boo.Overview}</p>
 		</div>
 	</section>
-	<section class="flex flex-col gap-2 p-2">
-		<h1 class="text-2xl font-bold">You might also like</h1>
-		<List mediaList={data.similar}/>
-	</section>
+
+	<!-- <section class="flex flex-col gap-2 p-2"> -->
+	<!-- 	<h1 class="text-2xl font-bold">You might also like</h1> -->
+	<!-- 	<List mediaList={data.similar}/> -->
+	<!-- </section> -->
+  
 </div>
 <Footer />
 
