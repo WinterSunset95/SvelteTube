@@ -4,9 +4,10 @@
 	import List from "@/List.svelte";
   import Navigation from "@/Navigation.svelte";
   import { PlayIcon } from "@lucide/svelte";
-	import { type ConsumetAnimeInfo, type MediaInfo, type PeekABoo, type TmdbTvInfo, type TmdbMovieInfo, type MovieSearchResult, type TvSeason, type IEpisodeServer, type IAnimeEpisode } from "peek-a-boo.ts";
+	import { type ConsumetAnimeInfo, type MediaInfo, type PeekABoo, type TmdbTvInfo, type TmdbMovieInfo, type MovieSearchResult, type TvSeason, type IEpisodeServer, type IAnimeEpisode, type TmdbEpisode, type TmdbSeasonDetails } from "peek-a-boo.ts";
   import type { PageData } from "./$types";
   import EpisodeNavigation from "@/EpisodeNavigation.svelte";
+  import SourceSelector from "@/SourceSelector.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -65,6 +66,22 @@
 		getEmbedLinks()
 	})
 
+  let selectedSeason = $state<TvSeason | undefined>(undefined);
+  let selectedEpisode = $state<TmdbEpisode | undefined>(undefined);
+  let selectedEmbed = $state<IEpisodeServer | undefined>(undefined);
+
+  const seasonSelectionHandler = (season: TvSeason) => {
+    selectedSeason = season
+  }
+
+  const episodeSelectionHandler = (episode: TmdbEpisode) => {
+    selectedEpisode = episode
+  }
+
+  const embedSelectionHandler = (embed: IEpisodeServer) => {
+    selectedEmbed = embed
+  }
+
 </script>
 
 <svelte:head>
@@ -94,104 +111,66 @@
   <div class="flex flex-col gap-2 p-2 md:p-4 w-full h-full backdrop-blur-xs overflow-scroll">
 
     <div class="w-full h-full flex flex-col lg:flex-row">
-      <section class="flex flex-col items-center gap-2 z-10 w-full h-full p-4">
-        <div class="mt-6 w-full flex items-center justify-center lg:justify-start">
-          <h1 class="text-9xl font-bold">{data.peekaboo.boo.Title}</h1>
+      {#if selectedEmbed}
+        <div class="h-full w-full">
+          <div class="aspect-video overflow-hidden rounded-lg w-full h-full">
+            <iframe src={selectedEmbed.url} frameborder="0" title="{selectedEmbed.name}" class="w-full h-full" allowfullscreen></iframe>
+          </div>
         </div>
-        <div class="flex flex-row items-center justify-between w-full mt-6 lg:gap-10 lg:justify-start">
-          <span class="font-bold text-lg">{data.peekaboo.boo.Duration}</span>
-          <span class="font-bold text-lg">{data.peekaboo.boo.Year}</span>
-          <span class="font-bold text-lg">{data.peekaboo.boo.Type}</span>
-        </div>
-        <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
-        <div class="w-full flex flex-row gap-4 items-center">
-          {#if animeInfo && animeInfo.genres}
-            {#each animeInfo.genres as genre }
-              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
-            {/each}
-          {/if}
+      {:else}
+        <section class="flex flex-col items-center gap-2 z-10 w-full h-full p-4">
+          <div class="mt-6 w-full flex items-center justify-center lg:justify-start">
+            <h1 class="text-9xl font-bold">{data.peekaboo.boo.Title}</h1>
+          </div>
+          <div class="flex flex-row items-center justify-between w-full mt-6 lg:gap-10 lg:justify-start">
+            <span class="font-bold text-lg">{data.peekaboo.boo.Duration}</span>
+            <span class="font-bold text-lg">{data.peekaboo.boo.Year}</span>
+            <span class="font-bold text-lg">{data.peekaboo.boo.Type}</span>
+          </div>
+          <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
+          <div class="w-full flex flex-row gap-4 items-center">
+            {#if animeInfo && animeInfo.genres}
+              {#each animeInfo.genres as genre }
+                <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
+              {/each}
+            {/if}
 
-          {#if tmdbTvInfo}
-            {#each tmdbTvInfo.genres as genre}
-              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
-            {/each}
-          {/if}
+            {#if tmdbTvInfo}
+              {#each tmdbTvInfo.genres as genre}
+                <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+              {/each}
+            {/if}
 
-          {#if tmdbMovieInfo}
-            {#each tmdbMovieInfo.genres as genre}
-              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
-            {/each}
-          {/if}
-        </div>
-        <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Overview</h1>
-        <p class="text-xl md:text-2xl">{data.peekaboo.boo.Overview}</p>
-      </section>
+            {#if tmdbMovieInfo}
+              {#each tmdbMovieInfo.genres as genre}
+                <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+              {/each}
+            {/if}
+          </div>
+          <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Overview</h1>
+          <p class="text-xl md:text-2xl">{data.peekaboo.boo.Overview}</p>
+        </section>
+      {/if}
 
       <div class="w-full h-full lg:w-[45%]">
-        <EpisodeNavigation seasons={data.peekaboo.boo.TvShowSeason} id={data.peekaboo.boo.Id} />
-      </div>
-    </div>
-
-    <div class="w-full relative flex flex-col items-center justify-center gap-2">
-      <div class="aspect-video overflow-hidden rounded-lg w-full">
-        {#if server}
-          <iframe src={server.url} frameborder="0" title="{server.name}" class="w-full h-full" allowfullscreen></iframe>
+        {#if selectedEpisode || tmdbMovieInfo}
+          <SourceSelector 
+            selectedEmbed={selectedEmbed}
+            tvId={data.peekaboo.boo.Id}
+            season={selectedSeason}
+            movie={tmdbMovieInfo}
+            episode={selectedEpisode}
+            selectEpisode={episodeSelectionHandler}
+            selectEmbed={embedSelectionHandler}
+          />
         {:else}
-          <!-- <img class="object-cover w-full" src={data.peekaboo.boo.Poster} alt=""> -->
-        {/if}
-      </div>
-      {#if servers.length == 0 && tvSeasons.length == 0}
-        <button
-          class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] p-2 bg-background text-foreground rounded-2xl w-28 h-28 hover:scale-110 transition-all"
-          onclick={playMode}
-          aria-label="play"
-        >
-          <PlayIcon class="w-full h-full" />
-        </button>
-      {/if}
-      <div class="flex gap-2 w-full">
-        {#if tmdbTvInfo && tvSeasons.length > 0}
-          <Select.Root type="single" disabled={servers.length > 0 ? false : true}>
-            <Select.Trigger>
-              {server ? server.name : "Select Server"}
-            </Select.Trigger>
-            <Select.Content>
-              {#each servers as sv}
-                <Select.Item value={sv.name} onclick={() => server = sv}>{sv.name}</Select.Item>
-              {/each}
-            </Select.Content>
-          </Select.Root>
-          <Select.Root type="single">
-            <Select.Trigger>
-              {!tvSeason ? "Select Season" : tvSeason.Name}
-            </Select.Trigger>
-            <Select.Content>
-              {#each tvSeasons as season}
-                <Select.Item value={season.SeasonNumber} onclick={() => tvSeason = season}>{season.Name}</Select.Item>
-              {/each}
-            </Select.Content>
-          </Select.Root>
-          <Select.Root type="single" disabled={tvEpisodes.length > 0 ? false : true}>
-            <Select.Trigger>
-              {tvEpisode ? `Episode ${tvEpisode}` : "Select Episode"}
-            </Select.Trigger>
-            <Select.Content>
-              {#each tvEpisodes as episode}
-                <Select.Item value={episode.toString()} onclick={() => tvEpisode = episode}>Episode {episode}</Select.Item>
-              {/each}
-            </Select.Content>
-          </Select.Root>
-        {:else if tmdbMovieInfo && servers.length > 0}
-          <Select.Root type="single" disabled={servers.length > 0 ? false : true}>
-            <Select.Trigger>
-              {server ? server.name : "Select Server"}
-            </Select.Trigger>
-            <Select.Content>
-              {#each servers as sv}
-                <Select.Item value={sv.name} onclick={() => server = sv}>{sv.name}</Select.Item>
-              {/each}
-            </Select.Content>
-          </Select.Root>
+          <EpisodeNavigation
+            selectedSeason={selectedSeason}
+            selectSeason={seasonSelectionHandler}
+            seasons={data.peekaboo.boo.TvShowSeason}
+            id={data.peekaboo.boo.Id}
+            selectEpisode={episodeSelectionHandler}
+          />
         {/if}
       </div>
     </div>

@@ -1,27 +1,34 @@
 <script lang="ts">
-import type { PeekABoo, TvSeason, TmdbSeasonDetails } from "peek-a-boo.ts";
+import type { PeekABoo, TvSeason, TmdbSeasonDetails, TmdbEpisode } from "peek-a-boo.ts";
 import Button from "$lib/components/ui/button/button.svelte";
 import * as Select from "$lib/components/ui/select/index";
 import * as Card from "$lib/components/ui/card";
 
 let { 
+  selectedSeason,
   seasons,
   id,
+  selectEpisode,
+  selectSeason,
 }: {
+  selectedSeason: TvSeason | undefined,
   seasons: TvSeason[],
-  id: string
+  id: string,
+  selectEpisode: (episode: TmdbEpisode) => void,
+  selectSeason: (episode: TvSeason) => void,
 } = $props();
-
-let selectedSeason = $state(seasons[0]);
 
 let episodes = $derived.by(async () => {
   const seasonDetails = await fetch(`/api/tv/tmdb/seasons?id=${id}&season=${selectedSeason.SeasonNumber}`)
   const data = await seasonDetails.json() as PeekABoo<TmdbSeasonDetails>
-  console.log(data)
   if (!data.peek) {
     return null
   }
   return data.boo
+})
+
+$effect(() => {
+  selectSeason(seasons[0])
 })
 
 </script>
@@ -31,12 +38,12 @@ let episodes = $derived.by(async () => {
     <Button>Prev</Button>
     <Select.Root type="single" name="seasonSelector">
       <Select.Trigger>
-        {selectedSeason.Name}
+        {selectedSeason ? selectedSeason.Name : "Select A Season"}
       </Select.Trigger>
       <Select.Content>
         {#each seasons as season}
           {#if season.EpisodeCount > 0 && season.AirDate != null}
-            <Select.Item value={season.Name} onclick={() => selectedSeason = season}>{season.Name}</Select.Item>
+            <Select.Item value={season.Name} onclick={() => selectSeason(season)}>{season.Name}</Select.Item>
           {/if}
         {/each}
       </Select.Content>
@@ -46,11 +53,10 @@ let episodes = $derived.by(async () => {
   <div class="flex flex-col p-2 gap-2 h-full overflow-scroll">
     {#await episodes}
       <p>Loading !!!!</p>
-      
     {:then data} 
       {#each data.episodes as episode}
         <div class="w-full h-full">
-          <Card.Root onclick={() => console.log("not implemented")}>
+          <Card.Root onclick={() => selectEpisode(episode)}>
             <Card.Header>{episode.episode_number}. {episode.name}</Card.Header>
             <Card.Content>{episode.overview}</Card.Content>
           </Card.Root>

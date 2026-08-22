@@ -30,33 +30,11 @@
 	let query = $state<string | undefined>();
 	let menu = $state(false);
 
-	let stickyNav = $state(true);
-
-	$effect(() => {
-		window.addEventListener('scroll', (e) => {
-			const bodyY = document.body.getBoundingClientRect().y
-			console.log(bodyY)
-			if (bodyY != 0) {
-				stickyNav = true
-				return
-			} else {
-				stickyNav = true
-				return
-			}
-		})
-	})
-
-	onMount(() => {
-		if (document.body.getBoundingClientRect().y != 0) {
-			stickyNav = true
-		}
-	})
 
 </script>
 
-<!-- <nav class={`${stickyNav ? "sticky" : ""} top-0 z-50 flex flex-col ${stickyNav ? "backdrop-blur-3xl" : "bg-secondary"} transition-all`}> -->
 <nav class={`sticky top-0 z-50 flex flex-col backdrop-blur-3xl transition-all`}>
-	<div class={`flex items-center justify-between p-2 md:p-4 ${stickyNav ? "px-2 md:px-4" : "px-6 md:px-10"} ${menu ? "gap-2" : ""} lg:gap-2 flex-wrap transition-all`}>
+	<div class={`flex items-center justify-between p-2 md:p-4 px-2 md:px-4 ${menu ? "gap-2" : ""} lg:gap-2 flex-wrap transition-all`}>
 		<div class="w-full lg:w-auto flex items-center justify-between">
 			<a href="/" class="flex items-center gap-2">
 				<div class="w-12">
@@ -99,7 +77,7 @@
 		</ul>
 		<form
 			action="/search"
-			class={`flex gap-2 bg-background border-0 rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all border ${stickyNav ? "border-primary" : ""}`}
+			class={`flex gap-2 bg-background border-0 rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all border border-primary}`}
 		>
 			<input class="bg-transparent w-full" bind:value={query} type="text" name="query" placeholder="Search" />
 			<button type="submit">
