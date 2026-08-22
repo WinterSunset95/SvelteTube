@@ -6,7 +6,7 @@ let { media }: { media: MovieSearchResult } = $props();
 </script>
 
 <a href="/{media.Type}/{media.Id}">
-	<Card.Root class="border-0 relative aspect-[3/4] overflow-hidden rounded-lg group">
+	<Card.Root class="border-0 relative aspect-3/4 overflow-hidden rounded-lg group z-0">
 		<Card.Content class="p-0 absolute top-0 left-0 w-full h-full">
 			<div class="flex justify-center items-center w-full h-full">
 				<img src={media.Poster} class="object-cover w-full" alt="">

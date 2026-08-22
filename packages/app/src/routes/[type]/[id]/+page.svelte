@@ -97,86 +97,86 @@
 {:else}
 
 <Navigation />
-<main class="relative w-dvw h-dvh">
 
-  <div class="absolute top-0 left-0 w-full h-full">
-    <img class="w-full h-full object-cover" src={
-      data.peekaboo.boo.TmdbMovieInfo ?
-        `https://image.tmdb.org/t/p/w500${data.peekaboo.boo.TmdbMovieInfo.backdrop_path}` :
-        `https://image.tmdb.org/t/p/w500${data.peekaboo.boo.TmdbTvInfo.backdrop_path}`} 
-      alt="Backdrop"
-    />
-  </div>
+<div class="col-start-1 col-span-12 row-start-1 row-span-12 z-0">
+  <img class="w-full h-full object-cover" src={
+    data.peekaboo.boo.TmdbMovieInfo ?
+      `https://image.tmdb.org/t/p/w500${data.peekaboo.boo.TmdbMovieInfo.backdrop_path}` :
+      `https://image.tmdb.org/t/p/w500${data.peekaboo.boo.TmdbTvInfo.backdrop_path}`} 
+    alt="Backdrop"
+  />
+</div>
 
-  <div class="flex flex-col gap-2 p-2 md:p-4 w-full h-full backdrop-blur-xs overflow-scroll">
+<div class="col-start-1 col-span-12 row-start-1 row-span-12 z-10 backdrop-blur-xs">
+</div>
 
-    <div class="w-full h-full flex flex-col lg:flex-row">
-      {#if selectedEmbed}
-        <div class="h-full w-full">
-          <div class="aspect-video overflow-hidden rounded-lg w-full h-full">
-            <iframe src={selectedEmbed.url} frameborder="0" title="{selectedEmbed.name}" class="w-full h-full" allowfullscreen></iframe>
-          </div>
+<div class="col-start-1 col-span-12 lg:col-start-1 lg:col-span-6 row-start-2 row-span-6 lg:row-start-2 lg:row-span-11 z-20 overflow-hidden">
+  <div class="w-full h-full flex flex-col lg:flex-row overflow-auto">
+    {#if selectedEmbed}
+      <div class="h-full w-full p-4">
+        <div class="aspect-video w-full h-full bg-accent overflow-hidden rounded-lg">
+          <iframe src={selectedEmbed.url} frameborder="0" title="{selectedEmbed.name}" class="w-full h-full" allowfullscreen></iframe>
         </div>
-      {:else}
-        <section class="flex flex-col items-center gap-2 z-10 w-full h-full p-4">
-          <div class="mt-6 w-full flex items-center justify-center lg:justify-start">
-            <h1 class="text-9xl font-bold">{data.peekaboo.boo.Title}</h1>
-          </div>
-          <div class="flex flex-row items-center justify-between w-full mt-6 lg:gap-10 lg:justify-start">
-            <span class="font-bold text-lg">{data.peekaboo.boo.Duration}</span>
-            <span class="font-bold text-lg">{data.peekaboo.boo.Year}</span>
-            <span class="font-bold text-lg">{data.peekaboo.boo.Type}</span>
-          </div>
-          <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
-          <div class="w-full flex flex-row gap-4 items-center">
-            {#if animeInfo && animeInfo.genres}
-              {#each animeInfo.genres as genre }
-                <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
-              {/each}
-            {/if}
-
-            {#if tmdbTvInfo}
-              {#each tmdbTvInfo.genres as genre}
-                <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
-              {/each}
-            {/if}
-
-            {#if tmdbMovieInfo}
-              {#each tmdbMovieInfo.genres as genre}
-                <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
-              {/each}
-            {/if}
-          </div>
-          <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Overview</h1>
-          <p class="text-xl md:text-2xl">{data.peekaboo.boo.Overview}</p>
-        </section>
-      {/if}
-
-      <div class="w-full h-full lg:w-[45%]">
-        {#if selectedEpisode || tmdbMovieInfo}
-          <SourceSelector 
-            selectedEmbed={selectedEmbed}
-            tvId={data.peekaboo.boo.Id}
-            season={selectedSeason}
-            movie={tmdbMovieInfo}
-            episode={selectedEpisode}
-            selectEpisode={episodeSelectionHandler}
-            selectEmbed={embedSelectionHandler}
-          />
-        {:else}
-          <EpisodeNavigation
-            selectedSeason={selectedSeason}
-            selectSeason={seasonSelectionHandler}
-            seasons={data.peekaboo.boo.TvShowSeason}
-            id={data.peekaboo.boo.Id}
-            selectEpisode={episodeSelectionHandler}
-          />
-        {/if}
       </div>
-    </div>
+    {:else}
+      <section class="flex flex-col items-center gap-2 z-10 w-full p-4">
+        <div class="mt-6 w-full flex items-center justify-center lg:justify-start">
+          <h1 class="text-5xl font-bold">{data.peekaboo.boo.Title}</h1>
+        </div>
+        <div class="flex flex-row items-center justify-between w-full mt-6 lg:gap-10 lg:justify-start">
+          <span class="font-bold text-lg">{data.peekaboo.boo.Duration}</span>
+          <span class="font-bold text-lg">{data.peekaboo.boo.Year}</span>
+          <span class="font-bold text-lg">{data.peekaboo.boo.Type}</span>
+        </div>
+        <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
+        <div class="w-full flex flex-row gap-4 items-center">
+          {#if animeInfo && animeInfo.genres}
+            {#each animeInfo.genres as genre }
+              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
+            {/each}
+          {/if}
 
+          {#if tmdbTvInfo}
+            {#each tmdbTvInfo.genres as genre}
+              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+            {/each}
+          {/if}
+
+          {#if tmdbMovieInfo}
+            {#each tmdbMovieInfo.genres as genre}
+              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+            {/each}
+          {/if}
+        </div>
+        <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Overview</h1>
+        <p class="text-xl md:text-2xl">{data.peekaboo.boo.Overview}</p>
+      </section>
+    {/if}
   </div>
+</div>
 
-</main>
+<div class="col-start-1 col-span-12 lg:col-start-7 lg:col-span-6 row-start-8 row-span-5 lg:row-start-2 lg:row-span-11 z-20 overflow-hidden">
+  <div class="w-full h-full p-4">
+    {#if selectedEpisode || tmdbMovieInfo}
+      <SourceSelector 
+        selectedEmbed={selectedEmbed}
+        tvId={data.peekaboo.boo.Id}
+        season={selectedSeason}
+        movie={tmdbMovieInfo}
+        episode={selectedEpisode}
+        selectEpisode={episodeSelectionHandler}
+        selectEmbed={embedSelectionHandler}
+      />
+    {:else}
+      <EpisodeNavigation
+        selectedSeason={selectedSeason}
+        selectSeason={seasonSelectionHandler}
+        seasons={data.peekaboo.boo.TvShowSeason}
+        id={data.peekaboo.boo.Id}
+        selectEpisode={episodeSelectionHandler}
+      />
+    {/if}
+  </div>
+</div>
 
 {/if}

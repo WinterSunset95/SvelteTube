@@ -33,57 +33,59 @@
 
 </script>
 
-<nav class={`sticky top-0 z-50 flex flex-col backdrop-blur-3xl transition-all`}>
-	<div class={`flex items-center justify-between p-2 md:p-4 px-2 md:px-4 ${menu ? "gap-2" : ""} lg:gap-2 flex-wrap transition-all`}>
-		<div class="w-full lg:w-auto flex items-center justify-between">
-			<a href="/" class="flex items-center gap-2">
-				<div class="w-12">
-					<Logo />
-				</div>
-				<h1 class="text-xl font-bold">SvelteTube</h1>
-			</a>
-			<Button class="lg:hidden" onclick={() => menu = !menu} aria-label="menu">
-				<AlignJustify />
-				<span>Menu</span>
-			</Button>
-		</div>
-		<ul class={`flex justify-between w-full text-sm md:text-lg lg:w-auto items-center gap-2 lg:gap-6 overflow-hidden ${menu ? "h-auto" : "h-0"} lg:h-auto transition-all`}>
-			<li>
-				<a href="/home">Home</a>
-			</li>
-			<li>
-				<a href="/" aria-disabled="true">Movies</a>
-			</li>
-			<li>
-				<a href="/" aria-disabled="true">TV Shows</a>
-			</li>
-			<li>
-				<a href="/" aria-disabled="true">Anime</a>
-			</li>
-			<li>
-				<a href="/" aria-disabled="true">Rooms</a>
-			</li>
-			<li>
-				<Button onclick={toggleMode} variant="outline" size="icon" class={`${menu ? "" : ""} relative`}>
-          <SunIcon
-            class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
-          />
-          <MoonIcon
-            class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
-          />
-          <span class="sr-only">Toggle theme</span>
+<div class="row-start-1 row-end-2 col-start-1 col-span-12 z-50">
+  <nav class={`flex flex-col backdrop-blur-3xl transition-all w-full z-50`}>
+    <div class={`flex items-center justify-between p-2 md:p-4 px-2 md:px-4 ${menu ? "gap-2" : ""} lg:gap-2 flex-wrap transition-all`}>
+      <div class="w-full lg:w-auto flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-12">
+            <Logo />
+          </div>
+          <h1 class="text-xl font-bold">SvelteTube</h1>
+        </a>
+        <Button class="lg:hidden" onclick={() => menu = !menu} aria-label="menu">
+          <AlignJustify />
+          <span>Menu</span>
         </Button>
-			</li>
-		</ul>
-		<form
-			action="/search"
-			class={`flex gap-2 bg-background border-0 rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all border border-primary}`}
-		>
-			<input class="bg-transparent w-full" bind:value={query} type="text" name="query" placeholder="Search" />
-			<button type="submit">
-				<SearchIcon />
-			</button>
-		</form>
-	</div>
-	<progress value={progress.current} max="10" class={`${navigating.to ? "h-0.5" : "h-0"} transition-all w-full`}></progress>
-</nav>
+      </div>
+      <ul class={`flex justify-between w-full text-sm md:text-lg lg:w-auto items-center gap-2 lg:gap-6 overflow-hidden ${menu ? "h-auto" : "h-0"} lg:h-auto transition-all`}>
+        <li>
+          <a href="/home">Home</a>
+        </li>
+        <li>
+          <a href="/" aria-disabled="true">Movies</a>
+        </li>
+        <li>
+          <a href="/" aria-disabled="true">TV Shows</a>
+        </li>
+        <li>
+          <a href="/" aria-disabled="true">Anime</a>
+        </li>
+        <li>
+          <a href="/" aria-disabled="true">Rooms</a>
+        </li>
+        <li>
+          <Button onclick={toggleMode} variant="outline" size="icon" class={`${menu ? "" : ""} relative`}>
+            <SunIcon
+              class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
+            />
+            <MoonIcon
+              class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
+            />
+            <span class="sr-only">Toggle theme</span>
+          </Button>
+        </li>
+      </ul>
+      <form
+        action="/search"
+        class={`flex gap-2 bg-background border-0 rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all border border-primary}`}
+      >
+        <input class="bg-transparent w-full" bind:value={query} type="text" name="query" placeholder="Search" />
+        <button type="submit">
+          <SearchIcon />
+        </button>
+      </form>
+    </div>
+    <progress value={progress.current} max="10" class={`${navigating.to ? "h-0.5" : "h-0"} transition-all w-full`}></progress>
+  </nav>
+</div>

@@ -11,4 +11,6 @@
 </script>
 
 <ModeWatcher />
-{@render children?.()}
+<main class="w-dvw h-dvh grid grid-cols-12 grid-rows-12 relative">
+  {@render children?.()}
+</main>

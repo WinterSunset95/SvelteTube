@@ -4,7 +4,7 @@ import type { PeekABoo, TvSeason, TmdbSeasonDetails, TmdbEpisode, TmdbMovieInfo,
 import Button from "$lib/components/ui/button/button.svelte";
 import * as Select from "$lib/components/ui/select/index";
 import * as Card from "$lib/components/ui/card";
-    import { ArrowLeft } from "@lucide/svelte";
+    import { ArrowLeft, ExternalLink, Link, Play } from "@lucide/svelte";
 
 let {
   selectedEmbed,
@@ -37,7 +37,7 @@ let embeds = $derived.by(async () => {
 
 </script>
 
-<div class="w-full flex flex-col justify-center items-center p-2 backdrop-blur-xl bg-accent rounded-2xl h-[90dvh]">
+<div class="w-full h-full flex flex-col justify-center items-center p-2 backdrop-blur-xl bg-accent/50 rounded-lg">
   {#if episode}
     <div class="w-full p-2 flex fles-row items-center justify-between">
       <Button onclick={() => selectEpisode(undefined)}>
@@ -45,15 +45,18 @@ let embeds = $derived.by(async () => {
       </Button>
     </div>
   {/if}
-  <div class="flex flex-col p-2 gap-2 h-full w-full overflow-scroll">
+  <div class="flex flex-col p-2 gap-2 h-full w-full overflow-auto">
     {#await embeds}
       <p>Loading !!!!</p>
     {:then data} 
       {#each data as server}
         <div class="w-full h-full">
-          <Card.Root onclick={() => selectEmbed(server)} class={`${selectedEmbed?.url == server.url ? "bg-accent-foreground text-accent" : ""}`}>
-            <Card.Header>{server.name}</Card.Header>
-            <Card.Content>{server.url}</Card.Content>
+          <Card.Root class={`${selectedEmbed?.url == server.url ? "bg-accent-foreground text-accent" : ""}`}>
+            <Card.Header>{server.name} ({server.url})</Card.Header>
+            <Card.Content>
+              <Button onclick={() => selectEmbed(server)}>Play Here <Play /> </Button>
+              <Button target="_blank" href={server.url}>Play in External player <ExternalLink /> </Button>
+            </Card.Content>
           </Card.Root>
         </div>
       {/each}

@@ -33,7 +33,7 @@ $effect(() => {
 
 </script>
 
-<div class="w-full flex flex-col justify-center items-center p-2 backdrop-blur-xl bg-accent rounded-2xl h-[90dvh]">
+<div class="w-full h-full flex flex-col justify-center items-center p-2 backdrop-blur-xl bg-accent/50 rounded-lg">
   <div class="w-full p-2 flex fles-row items-center justify-between">
     <Button>Prev</Button>
     <Select.Root type="single" name="seasonSelector">
@@ -50,7 +50,7 @@ $effect(() => {
     </Select.Root>
     <Button>Next</Button>
   </div>
-  <div class="flex flex-col p-2 gap-2 h-full overflow-scroll">
+  <div class="flex flex-col p-2 gap-2 h-full overflow-auto">
     {#await episodes}
       <p>Loading !!!!</p>
     {:then data} 
