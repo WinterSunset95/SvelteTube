@@ -13,7 +13,6 @@
 	<meta name="description" content="Download anime, stream and chat live as you watch">
 </svelte:head>
 
-<Navigation />
 <div class="col-start-1 col-span-12 row-start-1 row-span-12 overflow-hidden">
   <div class="w-full h-full overflow-auto">
     <main class="flex flex-col justify-center items-center p-6 pt-40 md:p-10 gap-4 w-full mt-6">

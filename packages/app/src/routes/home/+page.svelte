@@ -17,14 +17,11 @@ let { data }: { data: {
 	<meta name="description" content="Download anime, stream and chat live as you watch">
 </svelte:head>
 
-<Navigation />
-<div class="row-start-1 row-span-12 col-start-1 col-span-12 overflow-hidden">
-  <div class="w-full h-full overflow-auto">
-    <main class="p-4 flex flex-col gap-2 mt-20">
-      <h1 class="text-lg md:text-xl">Trending Shows</h1>
-      <List mediaList={data.tv.boo} />
-      <h1 class="text-lg md:text-xl">Trending Movies</h1>
-      <List mediaList={data.movies.boo} />
-    </main>
-  </div>
+<div class="w-full h-full overflow-auto">
+  <main class="p-4 flex flex-col gap-2 mt-20">
+    <h1 class="text-lg md:text-xl">Trending Shows</h1>
+    <List mediaList={data.tv.boo} />
+    <h1 class="text-lg md:text-xl">Trending Movies</h1>
+    <List mediaList={data.movies.boo} />
+  </main>
 </div>

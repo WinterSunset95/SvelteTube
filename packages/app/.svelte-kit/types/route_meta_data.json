@@ -1,5 +1,7 @@
 {
-	"/": [],
+	"/": [
+		"src/routes/+page.server.ts"
+	],
 	"/about": [],
 	"/api/movie/tmdb/embeds": [
 		"src/routes/api/movie/tmdb/embeds/+server.ts"

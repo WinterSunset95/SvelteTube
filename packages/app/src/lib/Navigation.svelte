@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { AlignJustify, List, MoonIcon, SearchIcon, SunIcon } from "@lucide/svelte";
+  import { AlignJustify, CompassIcon, HomeIcon, House, List, MoonIcon, PersonStanding, SearchIcon, SunIcon } from "@lucide/svelte";
   import Logo from "./Logo.svelte";
   import { Button, Root } from "$lib/components/ui/button";
 	import { afterNavigate, beforeNavigate } from "$app/navigation";
 	import { navigating } from "$app/state";
   import { Tween } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
-  import { onMount } from "svelte";
-  import * as NavigationMenu from "$lib/components/ui/navigation-menu";
+  import { page } from "$app/stores";
   import { toggleMode } from "mode-watcher";
 
 	let progress = new Tween(1, {
@@ -30,62 +29,26 @@
 	let query = $state<string | undefined>();
 	let menu = $state(false);
 
+  const navItems = [
+    { name: 'Home', href: '/home', icon: House },
+    { name: 'Search', href: '/search', icon: SearchIcon },
+    { name: 'Discover', href: '/discover', icon: CompassIcon, disabled: true },
+    { name: 'About', href: '/about', icon: PersonStanding },
+  ];
+
 
 </script>
 
-<div class="row-start-1 row-end-2 col-start-1 col-span-12 z-50">
-  <nav class={`flex flex-col backdrop-blur-3xl transition-all w-full z-50`}>
-    <div class={`flex items-center justify-between p-2 md:p-4 px-2 md:px-4 ${menu ? "gap-2" : ""} lg:gap-2 flex-wrap transition-all`}>
-      <div class="w-full lg:w-auto flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2">
-          <div class="w-12">
-            <Logo />
-          </div>
-          <h1 class="text-xl font-bold">SvelteTube</h1>
-        </a>
-        <Button class="lg:hidden" onclick={() => menu = !menu} aria-label="menu">
-          <AlignJustify />
-          <span>Menu</span>
-        </Button>
-      </div>
-      <ul class={`flex justify-between w-full text-sm md:text-lg lg:w-auto items-center gap-2 lg:gap-6 overflow-hidden ${menu ? "h-auto" : "h-0"} lg:h-auto transition-all`}>
-        <li>
-          <a href="/home">Home</a>
-        </li>
-        <li>
-          <a href="/" aria-disabled="true">Movies</a>
-        </li>
-        <li>
-          <a href="/" aria-disabled="true">TV Shows</a>
-        </li>
-        <li>
-          <a href="/" aria-disabled="true">Anime</a>
-        </li>
-        <li>
-          <a href="/" aria-disabled="true">Rooms</a>
-        </li>
-        <li>
-          <Button onclick={toggleMode} variant="outline" size="icon" class={`${menu ? "" : ""} relative`}>
-            <SunIcon
-              class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
-            />
-            <MoonIcon
-              class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
-            />
-            <span class="sr-only">Toggle theme</span>
-          </Button>
-        </li>
-      </ul>
-      <form
-        action="/search"
-        class={`flex gap-2 bg-background border-0 rounded-lg w-full lg:w-auto overflow-hidden ${menu ? "p-2 h-auto" : "p-0 h-0"} lg:h-auto lg:p-2 transition-all border border-primary}`}
-      >
-        <input class="bg-transparent w-full" bind:value={query} type="text" name="query" placeholder="Search" />
-        <button type="submit">
-          <SearchIcon />
-        </button>
-      </form>
-    </div>
-    <progress value={progress.current} max="10" class={`${navigating.to ? "h-0.5" : "h-0"} transition-all w-full`}></progress>
-  </nav>
-</div>
+<nav class={`flex lg:flex-row flex-col backdrop-blur-3xl transition-all w-full h-full z-50 bg-sidebar-accent`}>
+  <progress value={progress.current} max="10" class="{navigating.to ? "h-0.5" : "h-0"} transition-all w-full lg:hidden"></progress>
+  <div class="w-full h-full flex flex-row lg:flex-col items-center justify-center gap-4">
+    {#each navItems as item}
+      {@const Icon = item.icon }
+      <a href={item.href} class="{ $page.url.pathname === item.href ? 'underline text-sidebar-primary' : ''} w-full h-full flex items-center justify-center flex-col" aria-disabled={item.disabled}>
+        <Icon size=30/>
+        <span class="text-xs">{item.name}</span>
+      </a>
+    {/each}
+  </div>
+</nav>
+
