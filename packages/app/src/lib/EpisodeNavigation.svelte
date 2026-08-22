@@ -26,7 +26,7 @@ let episodes = $derived.by(async () => {
 
 </script>
 
-<div class="w-full flex flex-col justify-center items-center p-2 backdrop-blur-xl bg-accent rounded-2xl">
+<div class="w-full flex flex-col justify-center items-center p-2 backdrop-blur-xl bg-accent rounded-2xl h-[90dvh]">
   <div class="w-full p-2 flex fles-row items-center justify-between">
     <Button>Prev</Button>
     <Select.Root type="single" name="seasonSelector">
@@ -43,16 +43,18 @@ let episodes = $derived.by(async () => {
     </Select.Root>
     <Button>Next</Button>
   </div>
-  <div class="flex flex-col p-2 gap-2">
+  <div class="flex flex-col p-2 gap-2 h-full overflow-scroll">
     {#await episodes}
       <p>Loading !!!!</p>
       
     {:then data} 
       {#each data.episodes as episode}
-        <Card.Root onclick={() => console.log("not implemented")}>
-          <Card.Header>{episode.episode_number}. {episode.name}</Card.Header>
-          <Card.Content>{episode.overview}</Card.Content>
-        </Card.Root>
+        <div class="w-full h-full">
+          <Card.Root onclick={() => console.log("not implemented")}>
+            <Card.Header>{episode.episode_number}. {episode.name}</Card.Header>
+            <Card.Content>{episode.overview}</Card.Content>
+          </Card.Root>
+        </div>
       {/each}
     {/await}
   </div>

@@ -30,11 +30,7 @@
 	let query = $state<string | undefined>();
 	let menu = $state(false);
 
-	function toggleTheme() {
-    toggleMode()
-	}
-
-	let stickyNav = $state(false);
+	let stickyNav = $state(true);
 
 	$effect(() => {
 		window.addEventListener('scroll', (e) => {
@@ -44,7 +40,7 @@
 				stickyNav = true
 				return
 			} else {
-				stickyNav = false
+				stickyNav = true
 				return
 			}
 		})
@@ -58,7 +54,8 @@
 
 </script>
 
-<nav class={`${stickyNav ? "sticky" : ""} top-0 z-50 flex flex-col ${stickyNav ? "backdrop-blur-3xl" : "bg-secondary"} transition-all`}>
+<!-- <nav class={`${stickyNav ? "sticky" : ""} top-0 z-50 flex flex-col ${stickyNav ? "backdrop-blur-3xl" : "bg-secondary"} transition-all`}> -->
+<nav class={`sticky top-0 z-50 flex flex-col backdrop-blur-3xl transition-all`}>
 	<div class={`flex items-center justify-between p-2 md:p-4 ${stickyNav ? "px-2 md:px-4" : "px-6 md:px-10"} ${menu ? "gap-2" : ""} lg:gap-2 flex-wrap transition-all`}>
 		<div class="w-full lg:w-auto flex items-center justify-between">
 			<a href="/" class="flex items-center gap-2">

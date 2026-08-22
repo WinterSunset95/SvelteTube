@@ -79,7 +79,7 @@
 	<h1>Failed to get data: {data.peekaboo.boo}</h1>
 {:else}
 
-<!-- <Navigation /> -->
+<Navigation />
 <main class="relative w-dvw h-dvh">
 
   <div class="absolute top-0 left-0 w-full h-full">
@@ -93,41 +93,44 @@
 
   <div class="flex flex-col gap-2 p-2 md:p-4 w-full h-full backdrop-blur-xs overflow-scroll">
 
-    <section class="flex flex-col lg:flex-row items-center gap-2 z-10 w-full h-full p-2">
-      <div class="mt-3">
-        <h1 class="text-9xl font-bold">{data.peekaboo.boo.Title}</h1>
+    <div class="w-full h-full flex flex-col lg:flex-row">
+      <section class="flex flex-col items-center gap-2 z-10 w-full h-full p-4">
+        <div class="mt-6 w-full flex items-center justify-center lg:justify-start">
+          <h1 class="text-9xl font-bold">{data.peekaboo.boo.Title}</h1>
+        </div>
+        <div class="flex flex-row items-center justify-between w-full mt-6 lg:gap-10 lg:justify-start">
+          <span class="font-bold text-lg">{data.peekaboo.boo.Duration}</span>
+          <span class="font-bold text-lg">{data.peekaboo.boo.Year}</span>
+          <span class="font-bold text-lg">{data.peekaboo.boo.Type}</span>
+        </div>
+        <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
+        <div class="w-full flex flex-row gap-4 items-center">
+          {#if animeInfo && animeInfo.genres}
+            {#each animeInfo.genres as genre }
+              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
+            {/each}
+          {/if}
+
+          {#if tmdbTvInfo}
+            {#each tmdbTvInfo.genres as genre}
+              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+            {/each}
+          {/if}
+
+          {#if tmdbMovieInfo}
+            {#each tmdbMovieInfo.genres as genre}
+              <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
+            {/each}
+          {/if}
+        </div>
+        <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Overview</h1>
+        <p class="text-xl md:text-2xl">{data.peekaboo.boo.Overview}</p>
+      </section>
+
+      <div class="w-full h-full lg:w-[45%]">
+        <EpisodeNavigation seasons={data.peekaboo.boo.TvShowSeason} id={data.peekaboo.boo.Id} />
       </div>
-      <div class="flex flex-row items-center justify-between w-full mt-3">
-        <span class="font-bold text-lg">{data.peekaboo.boo.Duration}</span>
-        <span class="font-bold text-lg">{data.peekaboo.boo.Year}</span>
-        <span class="font-bold text-lg">{data.peekaboo.boo.Type}</span>
-      </div>
-      <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
-      <div class="w-full flex flex-row gap-4 items-center">
-        {#if animeInfo && animeInfo.genres}
-          {#each animeInfo.genres as genre }
-            <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
-          {/each}
-        {/if}
-
-        {#if tmdbTvInfo}
-          {#each tmdbTvInfo.genres as genre}
-            <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
-          {/each}
-        {/if}
-
-        {#if tmdbMovieInfo}
-          {#each tmdbMovieInfo.genres as genre}
-            <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
-          {/each}
-        {/if}
-      </div>
-      <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Overview</h1>
-      <p class="text-xl md:text-2xl">{data.peekaboo.boo.Overview}</p>
-
-    </section>
-
-    <EpisodeNavigation seasons={data.peekaboo.boo.TvShowSeason} id={data.peekaboo.boo.Id} />
+    </div>
 
     <div class="w-full relative flex flex-col items-center justify-center gap-2">
       <div class="aspect-video overflow-hidden rounded-lg w-full">
@@ -192,7 +195,6 @@
         {/if}
       </div>
     </div>
-
 
   </div>
 
