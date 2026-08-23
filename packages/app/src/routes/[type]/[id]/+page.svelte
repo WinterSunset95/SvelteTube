@@ -1,71 +1,15 @@
 <script lang="ts">
-	import * as Select from "$lib/components/ui/select"
-  import Footer from "@/Footer.svelte";
-	import List from "@/List.svelte";
-  import Navigation from "@/Navigation.svelte";
   import { ArrowLeft, PlayIcon } from "@lucide/svelte";
 	import { type ConsumetAnimeInfo, type MediaInfo, type PeekABoo, type TmdbTvInfo, type TmdbMovieInfo, type MovieSearchResult, type TvSeason, type IEpisodeServer, type IAnimeEpisode, type TmdbEpisode, type TmdbSeasonDetails } from "peek-a-boo.ts";
   import type { PageData } from "./$types";
   import EpisodeNavigation from "@/EpisodeNavigation.svelte";
   import SourceSelector from "@/SourceSelector.svelte";
-    import Button from "@/components/ui/button/button.svelte";
+  import Button from "@/components/ui/button/button.svelte";
 
 	let { data }: { data: PageData } = $props();
 
-
-	$effect(() => {
-		console.log("Data updated")
-		console.log(data);
-	})
-
 	let tmdbTvInfo = $state<TmdbTvInfo | undefined>( typeof data.peekaboo.boo != "string" ? data.peekaboo.boo.TmdbTvInfo : undefined )
 	let tmdbMovieInfo = $state<TmdbMovieInfo | undefined>( typeof data.peekaboo.boo != "string" ? data.peekaboo.boo.TmdbMovieInfo : undefined )
-	let animeInfo = $state<ConsumetAnimeInfo | undefined>( typeof data.peekaboo.boo != "string" ? data.peekaboo.boo.ConsumetAnimeInfo : undefined )
-
-	// Exclusive to anime type
-	let animeEpisode = $state<IAnimeEpisode | undefined>(undefined);
-	let animeEpisodes = $state<IAnimeEpisode[]>([]);
-
-	// Exclusive to tv type
-	let tvSeasons = $state<TvSeason[]>([]);
-	let tvSeason = $state<TvSeason | undefined>()
-	let tvEpisode = $state<number | undefined>();
-	let tvEpisodes = $derived.by<number[]>(() => {
-		if (!tvSeason) return [];
-		return Array.from({ length: tvSeason.EpisodeCount }, (_, i) => i+1)
-	})
-
-	// Shared by Movie, Anime and TV type
-	let server = $state<IEpisodeServer | undefined>();
-	let servers = $state<IEpisodeServer[]>([]);
-
-	const playMode = () => {
-		if (typeof data.peekaboo.boo == "string") return;
-		if (animeInfo && data.peekaboo.boo.AnimeEpisodes) {
-			animeEpisodes = data.peekaboo.boo.AnimeEpisodes
-		}
-		if (tmdbMovieInfo) {
-			getEmbedLinks()
-		}
-		if (tmdbTvInfo && data.peekaboo.boo.TvShowSeason) {
-			tvSeasons = data.peekaboo.boo.TvShowSeason
-		}
-	}
-
-	const getEmbedLinks = async () => {
-		if (typeof data.peekaboo.boo == "string") return
-		const url = `/api/${data.peekaboo.boo.Type}/${data.peekaboo.boo.Type == "anime" ? "gogo" : "tmdb"}/embeds?id=${data.peekaboo.boo.Id}&season=${tvSeason?.SeasonNumber}&episode=${tvEpisode}`
-		console.log(url)
-		const res = await fetch(url)
-		const mediaData = await res.json() as PeekABoo<IEpisodeServer[]>;
-		servers = mediaData.boo;
-	}
-
-	$effect(() => {
-		console.log(tvSeason, tvEpisode)
-		if (!tvSeason || !tvEpisode) return
-		getEmbedLinks()
-	})
 
   let selectedSeason = $state<TvSeason | undefined>(undefined);
   let selectedEpisode = $state<TmdbEpisode | undefined>(undefined);
@@ -137,12 +81,6 @@
           </div>
           <h1 class="font-bold text-lg text-gray-400 w-full mt-4">Genres</h1>
           <div class="w-full flex flex-row gap-4 items-center">
-            {#if animeInfo && animeInfo.genres}
-              {#each animeInfo.genres as genre }
-                <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre}</span>
-              {/each}
-            {/if}
-
             {#if tmdbTvInfo}
               {#each tmdbTvInfo.genres as genre}
                 <span class="p-2 bg-secondary text-secondary-foreground rounded-lg">{genre.name}</span>
