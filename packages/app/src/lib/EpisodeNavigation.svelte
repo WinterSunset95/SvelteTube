@@ -40,7 +40,7 @@ $effect(() => {
       <Select.Trigger>
         {selectedSeason ? selectedSeason.Name : "Select A Season"}
       </Select.Trigger>
-      <Select.Content>
+      <Select.Content class="overflow-auto h-full max-h-80">
         {#each seasons as season}
           {#if season.EpisodeCount > 0 && season.AirDate != null}
             <Select.Item value={season.Name} onclick={() => selectSeason(season)}>{season.Name}</Select.Item>

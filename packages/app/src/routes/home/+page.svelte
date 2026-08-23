@@ -18,10 +18,20 @@ let { data }: { data: {
 </svelte:head>
 
 <div class="w-full h-full overflow-auto">
-  <main class="p-4 flex flex-col gap-2 mt-20">
-    <h1 class="text-lg md:text-xl">Trending Shows</h1>
+  <main class="p-4 flex flex-col gap-2">
+    <h1 class="flex w-full h-full justify-between items-center">
+      <span class="text-lg md:text-xl mb-4 font-black">
+        Trending Shows
+      </span>
+      <a href="/discover?type=tv&mode=trending">See More ></a>
+    </h1>
     <List mediaList={data.tv.boo} />
-    <h1 class="text-lg md:text-xl">Trending Movies</h1>
+    <h1 class="flex w-full h-full justify-between items-center mt-12">
+      <span class="text-lg md:text-xl mb-4 font-black">
+        Trending Movies
+      </span>
+      <a href="/discover?type=movie&mode=trending">See More ></a>
+    </h1>
     <List mediaList={data.movies.boo} />
   </main>
 </div>
