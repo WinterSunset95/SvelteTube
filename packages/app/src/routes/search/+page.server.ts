@@ -5,8 +5,8 @@ export async function load({ url }) {
 
 	// Fetch both in parallel for maximum speed
 	const [movieRes, tvRes] = await Promise.all([
-		tmdbProvider.searchMovie(query),
-		tmdbProvider.searchTv(query)
+		query != null ? tmdbProvider.searchMovie(query) : tmdbProvider.getTrendingMovies(),
+		query != null ? tmdbProvider.searchTv(query) : tmdbProvider.getTrendingTv()
 	]);
 
 	return {

@@ -12,6 +12,9 @@
 	"/api/tv/tmdb/seasons": [
 		"src/routes/api/tv/tmdb/seasons/+server.ts"
 	],
+	"/discover": [
+		"src/routes/discover/+page.server.ts"
+	],
 	"/home": [
 		"src/routes/home/+page.server.ts"
 	],
